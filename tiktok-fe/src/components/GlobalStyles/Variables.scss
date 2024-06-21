@@ -1,0 +1,22 @@
+:root {
+  --white: #ffffff;
+  --primary-color: rgba(254, 44, 85, 1);
+  --primary-color-opacity-8: rgba(254, 44, 85, 0.08);
+
+  --text-search-color: rgba(22, 24, 35, 1);
+  --text-search-color-opacity-3: rgba(22, 24, 35, 0.03);
+  --text-search-color-opacity-6: rgba(22, 24, 35, 0.06);
+  --text-search-color-opacity-12: rgba(22, 24, 35, 0.12);
+  --text-search-color-opacity-20: rgba(22, 24, 35, 0.2);
+  --text-search-color-opacity-34: rgba(22, 24, 35, 0.34);
+  --text-search-color-opacity-50: rgba(22, 24, 35, 0.5);
+  --text-search-color-opacity-75: rgba(22, 24, 35, 0.75);
+
+  --primary-box-shadow-opacity-6: rgba(0, 0, 0, 0.06);
+  --primary-box-shadow-opacity-12: rgba(0, 0, 0, 0.12);
+
+  // Default layout
+  --default-layout-header-height: 60px;
+  --default-layout-container-width: 100%;
+  --default-layout-sidebar-width: 240px;
+}
