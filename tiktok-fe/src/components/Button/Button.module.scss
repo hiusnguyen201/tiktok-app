@@ -23,12 +23,11 @@
 }
 
 .icon {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  text-align: center;
+  width: 20px;
+  height: 20px;
 }
 
 // types
@@ -70,6 +69,13 @@
   &:hover {
     background-color: var(--primary-color-opacity-8);
   }
+}
+
+.primary.outline {
+  background-color: #fff;
+  border-radius: 2px;
+  color: var(--text-color);
+  border-color: var(--text-search-color-opacity-12);
 }
 
 // size

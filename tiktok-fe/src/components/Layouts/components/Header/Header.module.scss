@@ -15,7 +15,7 @@
 
   width: var(--default-layout-container-width, 100%);
   max-width: 100%;
-  padding: 0 24px;
+  padding: 0 var(--default-layout-horizontal-spacer);
   height: 100%;
   display: flex;
   align-items: center;
@@ -117,13 +117,9 @@
   cursor: pointer;
 }
 
-// Option
-.loading-icon {
-  display: none;
-}
-
 .actions-box {
   display: flex;
+  height: 100%;
   align-items: center;
 }
 
@@ -131,5 +127,29 @@
   margin-left: 12px;
   font-size: 2rem;
   padding: 8px 12px;
+  cursor: pointer;
+}
+
+.actions-box-right {
+  margin-left: 16px;
+}
+
+.action-btn {
+  color: var(--text-color);
+  background-color: transparent;
+  font-size: 2.2rem;
+  cursor: pointer;
+  padding: 3px 3px 0px;
+  width: 32px;
+  height: 32px;
+  margin-left: 16px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 24px;
   cursor: pointer;
 }
