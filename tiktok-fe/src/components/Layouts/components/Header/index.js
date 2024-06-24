@@ -1,74 +1,29 @@
-import { Children, useEffect, useState } from "react";
+import { useState } from "react";
 import classNames from "classnames/bind";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faXmarkCircle,
-  faCircleNotch,
-  faMagnifyingGlass,
-  faEllipsisVertical,
-  faEarthAsia,
-  faKeyboard,
-  faPlus,
-  faCoins,
-  faGear,
-  faMicrophone,
-  faMoon,
-  faArrowRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faMessage,
-  faCircleQuestion,
-  faBell,
-  faUser,
-  faBookmark,
-  faLightbulb,
-} from "@fortawesome/free-regular-svg-icons";
 import Tippy from "@tippyjs/react";
 import HeadlessTippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css";
 
+import {
+  MessageIcon,
+  InboxIcon,
+  SeeMoreIcon,
+  CloseIcon,
+  LoadingIcon,
+  SearchIcon,
+  PlusIcon,
+} from "~/components/Icons";
+import { MENU_ITEMS, USER_MENU } from "./ConstantMenu";
+
 import { Wrapper as PopperWrapper, Menu } from "~/components/Popper";
 import AccountItem from "~/components/AccountItem";
 import Button from "~/components/Button";
+import Image from "~/components/Image";
+
 import images from "~/assets/images";
 
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles); // Support specified object ( .asd-asda )
-
-const MENU_ITEMS = [
-  {
-    icon: <FontAwesomeIcon icon={faEarthAsia} />,
-    title: "English",
-    children: {
-      title: "Language",
-      data: [
-        {
-          type: "language",
-          code: "en",
-          title: "English",
-        },
-        {
-          type: "language",
-          code: "vi",
-          title: "Tiếng Việt",
-        },
-      ],
-    },
-  },
-  {
-    icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-    title: "Feedback and help",
-    to: "/feedback",
-  },
-  {
-    icon: <FontAwesomeIcon icon={faKeyboard} />,
-    title: "Keyboard shorcuts",
-  },
-  {
-    icon: <FontAwesomeIcon icon={faMoon} />,
-    title: "Dark mode",
-  },
-];
 
 function Header() {
   const [searchResult, setSearchResult] = useState([]);
@@ -82,46 +37,6 @@ function Header() {
         break;
     }
   };
-
-  const userMenu = [
-    {
-      icon: <FontAwesomeIcon icon={faUser} />,
-      title: "View Profile",
-      to: "/@user",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faBookmark} />,
-      title: "Favorites",
-      to: "/@user",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faCoins} />,
-      title: "Get Coins",
-      to: "/coin",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faMicrophone} />,
-      title: "LIVE Studio",
-      to: "/studio",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faLightbulb} />,
-      title: "LIVE Creator Hub",
-      to: "/creator",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faGear} />,
-      title: "Settings",
-      to: "/settings",
-    },
-    ...MENU_ITEMS,
-    {
-      icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
-      title: "Log out",
-      to: "/logout",
-      separate: true,
-    },
-  ];
 
   return (
     <header className={cx("header")}>
@@ -151,17 +66,13 @@ function Header() {
           <div className={cx("search-box")}>
             <input placeholder="Search" spellCheck={false} />
             <button className={cx("clear-btn")}>
-              <FontAwesomeIcon icon={faXmarkCircle} />
+              <CloseIcon />
             </button>
-            <FontAwesomeIcon
-              className={cx("loading-icon")}
-              icon={faCircleNotch}
-            />
+            <span className={cx("loading-icon")}>
+              <LoadingIcon />
+            </span>
             <button className={cx("search-btn")}>
-              <FontAwesomeIcon
-                className={cx("search-icon")}
-                icon={faMagnifyingGlass}
-              />
+              <SearchIcon />
             </button>
           </div>
         </HeadlessTippy>
@@ -171,25 +82,25 @@ function Header() {
           {currentUser ? (
             <>
               <Button
+                className={cx("upload-btn")}
                 primary
                 outline
-                leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                leftIcon={<PlusIcon />}
               >
                 Upload
               </Button>
 
-              <div className={cx("actions-box-right")}>
-                <Tippy deplay={[0, 200]} content="Messages" placement="bottom">
-                  <button className={cx("action-btn")}>
-                    <FontAwesomeIcon icon={faMessage} />
-                  </button>
-                </Tippy>
-                <Tippy deplay={[0, 200]} content="Inbox" placement="bottom">
-                  <button className={cx("action-btn")}>
-                    <FontAwesomeIcon icon={faBell} />
-                  </button>
-                </Tippy>
-              </div>
+              <Tippy delay={[0, 200]} content="Messages" placement="bottom">
+                <button className={cx("action-btn")}>
+                  <MessageIcon />
+                </button>
+              </Tippy>
+
+              <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
+                <button className={cx("action-btn")}>
+                  <InboxIcon />
+                </button>
+              </Tippy>
             </>
           ) : (
             <>
@@ -198,18 +109,18 @@ function Header() {
           )}
 
           <Menu
-            items={currentUser ? userMenu : MENU_ITEMS}
+            items={currentUser ? USER_MENU : MENU_ITEMS}
             onChange={handleMenuChange}
           >
             {currentUser ? (
-              <img
-                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/68c697b7a2697fb898ac15c1374ad28b.jpeg?lk3s=a5d48078&nonce=66442&refresh_token=9a0c5c6e35d139823ef1bbea588da1a3&x-expires=1719212400&x-signature=Wxhz2xJV%2BXjIKoTVbRhdWVKdVDQ%3D&shp=a5d48078&shcp=b59d6b55"
+              <Image
+                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/7324513474774728705.jpeg?lk3s=a5d48078&nonce=56210&refresh_token=f702cd06050aa4ff4a4289b03e9d5885&x-expires=1719392400&x-signature=%2FA6cWB%2F%2Fp1ic0mDXyzl9GB6lzFQ%3D&shp=a5d48078&shcp=81f88b70"
                 className={cx("user-avatar")}
-                alt="user"
+                alt="user avatar"
               />
             ) : (
               <button className={cx("more-action-btn")}>
-                <FontAwesomeIcon icon={faEllipsisVertical} />
+                <SeeMoreIcon />
               </button>
             )}
           </Menu>

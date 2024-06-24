@@ -1,0 +1,88 @@
+import {
+  UserIcon,
+  FavoriteIcon,
+  CoinIcon,
+  LiveStudioIcon,
+  LiveCreatorIcon,
+  SettingIcon,
+  LanguageIcon,
+  QuestionIcon,
+  KeyboardIcon,
+  DarkIcon,
+  LogoutIcon,
+} from "~/components/Icons";
+
+export const MENU_ITEMS = [
+  {
+    icon: <LanguageIcon />,
+    title: "English",
+    children: {
+      title: "Language",
+      data: [
+        {
+          type: "language",
+          code: "en",
+          title: "English",
+        },
+        {
+          type: "language",
+          code: "vi",
+          title: "Tiếng Việt",
+        },
+      ],
+    },
+  },
+  {
+    icon: <QuestionIcon />,
+    title: "Feedback and help",
+    to: "/feedback",
+  },
+  {
+    icon: <KeyboardIcon />,
+    title: "Keyboard shorcuts",
+  },
+  {
+    icon: <DarkIcon />,
+    title: "Dark mode",
+  },
+];
+
+export const USER_MENU = [
+  {
+    icon: <UserIcon />,
+    title: "View Profile",
+    to: "/@user",
+  },
+  {
+    icon: <FavoriteIcon />,
+    title: "Favorites",
+    to: "/@user",
+  },
+  {
+    icon: <CoinIcon />,
+    title: "Get Coins",
+    to: "/coin",
+  },
+  {
+    icon: <LiveStudioIcon />,
+    title: "LIVE Studio",
+    to: "/studio",
+  },
+  {
+    icon: <LiveCreatorIcon />,
+    title: "LIVE Creator Hub",
+    to: "/creator",
+  },
+  {
+    icon: <SettingIcon />,
+    title: "Settings",
+    to: "/settings",
+  },
+  ...MENU_ITEMS,
+  {
+    icon: <LogoutIcon />,
+    title: "Log out",
+    to: "/logout",
+    separate: true,
+  },
+];

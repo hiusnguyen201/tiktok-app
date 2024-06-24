@@ -1,6 +1,6 @@
 @import "normalize.css";
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 @import "./Variables.scss";
+@import "./Fonts.scss";
 
 * {
   margin: 0;
@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "TikTokFont", sans-serif;
   font-size: 1.6rem;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
@@ -33,6 +33,7 @@ a[href] {
   text-decoration: none;
 }
 
+// Custom Tippy Tooltip
 body {
   .tippy-box {
     background-color: rgba(84, 84, 84, 0.92);
