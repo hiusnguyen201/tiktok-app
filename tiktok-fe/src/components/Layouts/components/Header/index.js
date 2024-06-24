@@ -1,32 +1,24 @@
-import { useState } from "react";
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
-import HeadlessTippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css";
 
 import {
   MessageIcon,
   InboxIcon,
   SeeMoreIcon,
-  CloseIcon,
-  LoadingIcon,
-  SearchIcon,
   PlusIcon,
 } from "~/components/Icons";
 import { MENU_ITEMS, USER_MENU } from "./ConstantMenu";
-
-import { Wrapper as PopperWrapper, Menu } from "~/components/Popper";
-import AccountItem from "~/components/AccountItem";
+import { Menu } from "~/components/Popper";
 import Button from "~/components/Button";
 import Image from "~/components/Image";
-
+import Search from "~/components/Layouts/components/Search";
 import images from "~/assets/images";
 
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles); // Support specified object ( .asd-asda )
 
 function Header() {
-  const [searchResult, setSearchResult] = useState([]);
   const currentUser = true;
 
   const handleMenuChange = (menuItem) => {
@@ -42,40 +34,12 @@ function Header() {
     <header className={cx("header")}>
       <div className={cx("header-wrapper")}>
         {/* Item 1 */}
-        <div className={cx("logo-box")}>
+        <a href="/" className={cx("logo-box")}>
           <img src={images.logo} alt="Tiktok" />
-        </div>
+        </a>
 
         {/* Item 2 */}
-        <HeadlessTippy
-          interactive
-          visible={searchResult.length > 0}
-          render={(attrs) => (
-            <div className={cx("search-result-box")} tabIndex="-1" {...attrs}>
-              <PopperWrapper>
-                <h4 className={cx("search-title")}>Accounts</h4>
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-              </PopperWrapper>
-            </div>
-          )}
-        >
-          <div className={cx("search-box")}>
-            <input placeholder="Search" spellCheck={false} />
-            <button className={cx("clear-btn")}>
-              <CloseIcon />
-            </button>
-            <span className={cx("loading-icon")}>
-              <LoadingIcon />
-            </span>
-            <button className={cx("search-btn")}>
-              <SearchIcon />
-            </button>
-          </div>
-        </HeadlessTippy>
+        <Search />
 
         {/* Item 3 */}
         <div className={cx("actions-box")}>
@@ -98,6 +62,7 @@ function Header() {
 
               <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
                 <button className={cx("action-btn")}>
+                  <span className={cx("badge")}>3</span>
                   <InboxIcon />
                 </button>
               </Tippy>

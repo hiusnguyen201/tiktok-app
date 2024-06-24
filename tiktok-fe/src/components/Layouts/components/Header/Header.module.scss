@@ -22,98 +22,13 @@
   justify-content: space-between;
 }
 
+// Logo
 .logo-box {
   display: flex;
   align-items: center;
 }
 
-.search-box {
-  position: relative;
-  background-color: var(--text-search-color-opacity-6);
-  height: var(--search-height);
-  width: 516px;
-  min-width: 200px;
-  padding-left: 16px;
-  display: flex;
-  border-radius: var(--search-border-radius);
-  align-items: center;
-  border: 1px solid var(--text-search-color-opacity-6);
-
-  &:hover {
-    border: 1px solid var(--text-search-color-opacity-20);
-  }
-
-  &:hover .search-btn {
-    background-color: var(--text-search-color-opacity-6);
-    color: var(--text-search-color-opacity-75);
-  }
-
-  &::after {
-    content: "";
-    width: 1px;
-    height: calc(var(--search-height) - var(--search-top-spacer) * 2);
-    position: absolute;
-    background-color: var(--text-search-color-opacity-12);
-    top: var(--search-top-spacer);
-    right: var(--search-btn-width);
-  }
-
-  &:focus-within {
-    border-color: var(--text-search-color-opacity-20);
-  }
-
-  input {
-    flex: 1;
-    color: var(text-search-color);
-    font-size: 1.6rem;
-    height: 100%;
-    background-color: transparent;
-    caret-color: var(--primary-color);
-  }
-
-  input:not(:placeholder-shown) ~ .search-btn {
-    color: var(text-search-color) !important;
-  }
-}
-
-.search-btn,
-.search-result-box {
-  width: 516px;
-}
-
-.search-title {
-  font-weight: 600;
-  color: var(--text-search-color-opacity-50);
-  font-size: 1.4rem;
-  padding: 5px 12px;
-}
-
-.search-btn {
-  position: relative;
-  font-size: 1.8rem;
-  font-weight: 400;
-  border-top-right-radius: var(--search-border-radius);
-  border-bottom-right-radius: var(--search-border-radius);
-  width: var(--search-btn-width);
-  height: 100%;
-  color: var(--text-search-color-opacity-34);
-}
-
-.clear-btn,
-.loading-icon {
-  position: absolute;
-  right: calc(var(--search-btn-width) + 16px);
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.6rem;
-  color: var(--text-search-color-opacity-34);
-}
-
-.clear-btn,
-.search-btn {
-  cursor: pointer;
-}
-
+// Actions
 .actions-box {
   display: flex;
   height: 100%;
@@ -136,10 +51,27 @@
   background-color: transparent;
   cursor: pointer;
   margin-left: 16px;
+  position: relative;
 }
 
 .upload-btn {
   margin-right: 16px;
+}
+
+.badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1.4rem;
+  border-radius: 50%;
+  top: -20%;
+  left: 16px;
 }
 
 .user-avatar {

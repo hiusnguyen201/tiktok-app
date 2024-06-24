@@ -23,6 +23,9 @@
 
 .username {
   font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .check-icon {
