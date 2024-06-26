@@ -10,7 +10,13 @@ const cx = classNames.bind(styles);
 
 const defaultFn = () => {};
 
-function Menu({ children, items = [], onChange = defaultFn }) {
+function Menu({
+  visiable,
+  children,
+  items = [],
+  hideOnClick = false,
+  onChange = defaultFn,
+}) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
 
@@ -19,6 +25,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
       const isParent = !!item.children;
       return (
         <MenuItem
+          className={current.level > 1 && cx("menu-children")}
           key={index}
           data={item}
           onClick={() => {
@@ -35,6 +42,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
 
   return (
     <Tippy
+      visible={visiable}
       interactive
       offset={[12, 12]}
       delay={[0, 700]}
@@ -42,6 +50,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
       onHide={() => {
         setHistory((prev) => prev.slice(0, 1));
       }}
+      hideOnClick={hideOnClick}
       render={(attrs) => (
         <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
           <PopperWrapper className={cx("menu-popper")}>
@@ -53,7 +62,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
                 }}
               />
             )}
-            {renderItems()}
+            <div className={cx("menu-body")}>{renderItems()}</div>
           </PopperWrapper>
         </div>
       )}

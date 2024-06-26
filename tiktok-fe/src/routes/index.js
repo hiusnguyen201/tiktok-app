@@ -1,5 +1,5 @@
 import { OnlyHeader } from "~/components/Layouts";
-
+import routesConfig from "~/config/routes";
 import HomePage from "~/pages/Home";
 import FollowingPage from "~/pages/Following";
 import ProfilePage from "~/pages/Profile";
@@ -8,24 +8,24 @@ import SearchPage from "~/pages/Search";
 
 const publicRoutes = [
   {
-    path: "/",
+    path: routesConfig.home,
     element: HomePage,
   },
   {
-    path: "/following",
+    path: routesConfig.following,
     element: FollowingPage,
   },
   {
-    path: "/@:nickname",
+    path: routesConfig.profile,
     element: ProfilePage,
   },
   {
-    path: "/upload",
+    path: routesConfig.upload,
     element: UploadPage,
     layout: OnlyHeader,
   },
   {
-    path: "/search",
+    path: routesConfig.search,
     element: SearchPage,
     layout: null,
   },

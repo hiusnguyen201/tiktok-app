@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
+import { BackIcon } from "~/components/Icons";
 import styles from "./Menu.module.scss";
 const cx = classNames.bind(styles);
 
@@ -9,7 +8,7 @@ function Header({ title, onBack }) {
   return (
     <header className={cx("header")}>
       <button className={cx("back-btn")} onClick={onBack}>
-        <FontAwesomeIcon icon={faChevronLeft} />
+        <BackIcon />
       </button>
       <h4 className={cx("header-title")}>{title}</h4>
     </header>

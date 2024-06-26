@@ -35,7 +35,7 @@
 
   input {
     flex: 1;
-    color: var(--text-search-color-opacity-75);
+    color: var(--text-search-color);
     font-size: 1.6rem;
     height: 100%;
     background-color: transparent;
@@ -60,6 +60,9 @@
 }
 
 .search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   font-size: 1.8rem;
   font-weight: 400;

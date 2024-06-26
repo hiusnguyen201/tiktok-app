@@ -31,6 +31,13 @@ function Search() {
     setShowResult(false);
   };
 
+  const handleChange = (e) => {
+    const searchValue = e.target.value;
+    if (!searchValue.startsWith(" ")) {
+      setKeyword(searchValue);
+    }
+  };
+
   useEffect(() => {
     if (!debounced.trim()) {
       setSearchResult([]);
@@ -50,44 +57,48 @@ function Search() {
   }, [debounced]);
 
   return (
-    <HeadlessTippy
-      interactive
-      visible={showResult && searchResult.length > 0}
-      render={(attrs) => (
-        <div className={cx("search-result-box")} tabIndex="-1" {...attrs}>
-          <PopperWrapper>
-            <h4 className={cx("search-title")}>Accounts</h4>
-            {searchResult.map((item) => (
-              <AccountItem key={item.id} data={item} />
-            ))}
-          </PopperWrapper>
-        </div>
-      )}
-      onClickOutside={handleHideSearchResult}
-    >
-      <div className={cx("search-box")}>
-        <input
-          ref={inputRef}
-          value={keyword}
-          placeholder="Search"
-          spellCheck={false}
-          onChange={(e) => setKeyword(e.target.value)}
-          onFocus={() => setShowResult(true)}
-        />
-
-        {!!keyword && !loading && (
-          <button onClick={handleClear} className={cx("clear-btn")}>
-            <CloseIcon />
-          </button>
+    // Using <div> around the reference element solves
+    // this by creating a new parentNode context.
+    <div>
+      <HeadlessTippy
+        interactive
+        visible={showResult && searchResult.length > 0}
+        render={(attrs) => (
+          <div className={cx("search-result-box")} tabIndex="-1" {...attrs}>
+            <PopperWrapper>
+              <h4 className={cx("search-title")}>Accounts</h4>
+              {searchResult.map((item) => (
+                <AccountItem key={item.id} data={item} />
+              ))}
+            </PopperWrapper>
+          </div>
         )}
+        onClickOutside={handleHideSearchResult}
+      >
+        <div className={cx("search-box")}>
+          <input
+            ref={inputRef}
+            value={keyword}
+            placeholder="Search"
+            spellCheck={false}
+            onChange={handleChange}
+            onFocus={() => setShowResult(true)}
+          />
 
-        {loading && <LoadingIcon className={cx("loading-icon")} />}
+          {!!keyword && !loading && (
+            <button onClick={handleClear} className={cx("clear-btn")}>
+              <CloseIcon />
+            </button>
+          )}
 
-        <button className={cx("search-btn")}>
-          <SearchIcon />
-        </button>
-      </div>
-    </HeadlessTippy>
+          {loading && <LoadingIcon className={cx("loading-icon")} />}
+
+          <button className={cx("search-btn")}>
+            <SearchIcon />
+          </button>
+        </div>
+      </HeadlessTippy>
+    </div>
   );
 }
 

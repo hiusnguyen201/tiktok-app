@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import { Link } from "react-router-dom";
 
 import {
   MessageIcon,
@@ -14,6 +15,7 @@ import Button from "~/components/Button";
 import Image from "~/components/Image";
 import Search from "~/components/Layouts/components/Search";
 import images from "~/assets/images";
+import routesConfig from "~/config/routes";
 
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles); // Support specified object ( .asd-asda )
@@ -34,9 +36,9 @@ function Header() {
     <header className={cx("header")}>
       <div className={cx("header-wrapper")}>
         {/* Item 1 */}
-        <a href="/" className={cx("logo-box")}>
+        <Link to={routesConfig.home} className={cx("logo-link")}>
           <img src={images.logo} alt="Tiktok" />
-        </a>
+        </Link>
 
         {/* Item 2 */}
         <Search />
