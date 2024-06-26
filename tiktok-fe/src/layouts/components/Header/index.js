@@ -13,9 +13,9 @@ import { MENU_ITEMS, USER_MENU } from "./ConstantMenu";
 import { Menu } from "~/components/Popper";
 import Button from "~/components/Button";
 import Image from "~/components/Image";
-import Search from "~/components/Layouts/components/Search";
+import Search from "~/layouts/components/Search";
 import images from "~/assets/images";
-import routesConfig from "~/config/routes";
+import config from "~/config";
 
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles); // Support specified object ( .asd-asda )
@@ -36,7 +36,7 @@ function Header() {
     <header className={cx("header")}>
       <div className={cx("header-wrapper")}>
         {/* Item 1 */}
-        <Link to={routesConfig.home} className={cx("logo-link")}>
+        <Link to={config.routes.home} className={cx("logo-link")}>
           <img src={images.logo} alt="Tiktok" />
         </Link>
 

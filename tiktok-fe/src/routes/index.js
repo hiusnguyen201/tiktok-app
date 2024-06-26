@@ -1,5 +1,5 @@
-import { OnlyHeader } from "~/components/Layouts";
-import routesConfig from "~/config/routes";
+import { OnlyHeader } from "~/layouts";
+import config from "~/config";
 import HomePage from "~/pages/Home";
 import FollowingPage from "~/pages/Following";
 import ProfilePage from "~/pages/Profile";
@@ -8,24 +8,24 @@ import SearchPage from "~/pages/Search";
 
 const publicRoutes = [
   {
-    path: routesConfig.home,
+    path: config.routes.home,
     element: HomePage,
   },
   {
-    path: routesConfig.following,
+    path: config.routes.following,
     element: FollowingPage,
   },
   {
-    path: routesConfig.profile,
+    path: config.routes.profile,
     element: ProfilePage,
   },
   {
-    path: routesConfig.upload,
+    path: config.routes.upload,
     element: UploadPage,
     layout: OnlyHeader,
   },
   {
-    path: routesConfig.search,
+    path: config.routes.search,
     element: SearchPage,
     layout: null,
   },
