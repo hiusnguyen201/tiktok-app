@@ -25,7 +25,7 @@ function Menu({
       const isParent = !!item.children;
       return (
         <MenuItem
-          className={current.level > 1 && cx("menu-children")}
+          className={cx(current.level > 1 && "menu-children")}
           key={index}
           data={item}
           onClick={() => {

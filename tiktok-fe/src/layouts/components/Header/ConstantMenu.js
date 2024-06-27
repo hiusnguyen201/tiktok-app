@@ -1,5 +1,5 @@
 import {
-  UserIcon,
+  UserIconRegular,
   FavoriteIcon,
   CoinIcon,
   LiveStudioIcon,
@@ -190,7 +190,7 @@ export const MENU_ITEMS = [
 
 export const USER_MENU = [
   {
-    icon: <UserIcon />,
+    icon: <UserIconRegular />,
     title: "View Profile",
     to: "/@user",
   },

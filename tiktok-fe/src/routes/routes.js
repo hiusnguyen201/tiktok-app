@@ -5,6 +5,9 @@ import FollowingPage from "~/pages/Following";
 import ProfilePage from "~/pages/Profile";
 import UploadPage from "~/pages/Upload";
 import SearchPage from "~/pages/Search";
+import FriendsPage from "~/pages/Friends";
+import LivePage from "~/pages/Live";
+import ExplorePage from "~/pages/Explore";
 
 const publicRoutes = [
   {
@@ -27,7 +30,18 @@ const publicRoutes = [
   {
     path: config.routes.search,
     element: SearchPage,
-    layout: null,
+  },
+  {
+    path: config.routes.explore,
+    element: ExplorePage,
+  },
+  {
+    path: config.routes.live,
+    element: LivePage,
+  },
+  {
+    path: config.routes.friends,
+    element: FriendsPage,
   },
 ];
 
