@@ -1,6 +1,6 @@
 .search-box {
   position: relative;
-  background-color: var(--text-search-color-opacity-6);
+  background-color: var(--primary-text-color-opacity-6);
   height: var(--search-height);
   width: 516px;
   min-width: 200px;
@@ -8,15 +8,15 @@
   display: flex;
   border-radius: var(--search-border-radius);
   align-items: center;
-  border: 1px solid var(--text-search-color-opacity-6);
+  border: 1px solid var(--primary-text-color-opacity-6);
 
   &:hover {
-    border: 1px solid var(--text-search-color-opacity-20);
+    border: 1px solid var(--primary-text-color-opacity-20);
   }
 
   &:hover .search-btn {
-    background-color: var(--text-search-color-opacity-6);
-    color: var(--text-search-color-opacity-75);
+    background-color: var(--primary-text-color-opacity-6);
+    color: var(--primary-text-color-opacity-75);
   }
 
   &::after {
@@ -24,19 +24,19 @@
     width: 1px;
     height: calc(var(--search-height) - var(--search-top-spacer) * 2);
     position: absolute;
-    background-color: var(--text-search-color-opacity-12);
+    background-color: var(--primary-text-color-opacity-12);
     top: var(--search-top-spacer);
     right: var(--search-btn-width);
   }
 
   &:focus-within {
-    border-color: var(--text-search-color-opacity-20);
+    border-color: var(--primary-text-color-opacity-20);
   }
 
   input {
     flex: 1;
     padding-right: 40px;
-    color: var(--text-search-color);
+    color: var(--primary-text-color);
     font-size: 1.6rem;
     height: 100%;
     background-color: transparent;
@@ -44,7 +44,7 @@
   }
 
   input:not(:placeholder-shown) ~ .search-btn {
-    color: var(--text-search-color);
+    color: var(--primary-text-color);
   }
 }
 
@@ -55,7 +55,7 @@
 
 .search-title {
   font-weight: 600;
-  color: var(--text-search-color-opacity-50);
+  color: var(--primary-text-color-opacity-50);
   font-size: 1.4rem;
   padding: 5px 12px;
 }
@@ -71,7 +71,7 @@
   border-bottom-right-radius: var(--search-border-radius);
   width: var(--search-btn-width);
   height: 100%;
-  color: var(--text-search-color-opacity-34);
+  color: var(--primary-text-color-opacity-34);
 }
 
 .clear-btn,
@@ -81,7 +81,7 @@
   top: 50%;
   font-size: 1.6rem;
   transform: translateY(-50%);
-  color: var(--text-search-color-opacity-34);
+  color: var(--primary-text-color-opacity-34);
 }
 
 .loading-icon {

@@ -15,16 +15,24 @@ import {
   UserIconRegular,
 } from "~/components/Icons";
 import Menu, { MenuItem } from "./Menu";
+import Image from "~/components/Image";
+import FollowingAccounts from "~/components/FollowingAccounts";
+import constantLink from "./constantLink";
+import LinkItem from "./LinkItem";
+import images from "~/assets/images";
+
+import fakeUser from "~/fakeUser";
 
 import styles from "./Sidebar.module.scss";
 const cx = classNames.bind(styles);
 
 function Sidebar() {
   return (
-    <aside className={cx("wrapper")}>
+    <aside className={cx("aside-wrapper")}>
+      {/* Item 1 */}
       <Menu>
         <MenuItem
-          title="For you"
+          title="For You"
           to={config.routes.home}
           leftIcon={<HomeIconRegular />}
           leftIconActive={<HomeIconSolid />}
@@ -62,14 +70,52 @@ function Sidebar() {
             config.routes.profile.indexOf("@") + 1
           )}
           leftIcon={
-            <UserIconRegular
-              className={cx("smallIcon")}
-              width="3.2rem"
-              height="3.2rem"
-            />
+            fakeUser ? (
+              <Image
+                className={cx("avatar-img")}
+                src={fakeUser.avatar}
+                alt={fakeUser.full_name}
+              />
+            ) : (
+              <UserIconRegular
+                className={cx("smallIcon")}
+                width="3.2rem"
+                height="3.2rem"
+              />
+            )
+          }
+          leftIconActive={
+            <Image src={fakeUser.avatar} alt={fakeUser.full_name} />
           }
         />
       </Menu>
+
+      {/* Item 2 */}
+      <FollowingAccounts label="Following accounts" />
+
+      {/* Item 3 */}
+      <footer className={cx("footer-wrapper")}>
+        <a
+          href="/effecthouse"
+          target="_blank"
+          className={cx("effecthouse-btn")}
+        >
+          <img
+            className={cx("effecthouse-img")}
+            src={images.effectHouse}
+            alt="Create TikTok effects, get a reward"
+          />
+          <h4 className={cx("effecthouse-title")}>
+            Create TikTok effects, get a reward
+          </h4>
+        </a>
+
+        {constantLink.map((item) => (
+          <LinkItem data={item} />
+        ))}
+
+        <p className={cx("copyright")}>© 2024 TikTok</p>
+      </footer>
     </aside>
   );
 }

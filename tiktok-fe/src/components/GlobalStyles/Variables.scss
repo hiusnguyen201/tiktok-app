@@ -1,18 +1,19 @@
 :root {
   --primary-font: "TikTokFont", sans-serif;
+  --secondary-font: "TikTokDisplayFont", sans-serif;
 
   --white: #ffffff;
   --primary-color: rgba(254, 44, 85, 1);
   --primary-color-opacity-8: rgba(254, 44, 85, 0.08);
 
-  --text-search-color: rgba(22, 24, 35, 1);
-  --text-search-color-opacity-3: rgba(22, 24, 35, 0.03);
-  --text-search-color-opacity-6: rgba(22, 24, 35, 0.06);
-  --text-search-color-opacity-12: rgba(22, 24, 35, 0.12);
-  --text-search-color-opacity-20: rgba(22, 24, 35, 0.2);
-  --text-search-color-opacity-34: rgba(22, 24, 35, 0.34);
-  --text-search-color-opacity-50: rgba(22, 24, 35, 0.5);
-  --text-search-color-opacity-75: rgba(22, 24, 35, 0.75);
+  --primary-text-color: rgba(22, 24, 35, 1);
+  --primary-text-color-opacity-3: rgba(22, 24, 35, 0.03);
+  --primary-text-color-opacity-6: rgba(22, 24, 35, 0.06);
+  --primary-text-color-opacity-12: rgba(22, 24, 35, 0.12);
+  --primary-text-color-opacity-20: rgba(22, 24, 35, 0.2);
+  --primary-text-color-opacity-34: rgba(22, 24, 35, 0.34);
+  --primary-text-color-opacity-50: rgba(22, 24, 35, 0.5);
+  --primary-text-color-opacity-75: rgba(22, 24, 35, 0.75);
 
   --primary-box-shadow-opacity-6: rgba(0, 0, 0, 0.06);
   --primary-box-shadow-opacity-12: rgba(0, 0, 0, 0.12);

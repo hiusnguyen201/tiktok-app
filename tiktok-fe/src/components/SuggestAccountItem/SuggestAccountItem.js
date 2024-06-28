@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { CheckedIcon } from "~/components/Icons";
 import Image from "~/components/Image";
 
-import styles from "./AccountItem.module.scss";
+import styles from "./SuggestAccountItem.module.scss";
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
+function SuggestAccountItem({ data }) {
   return (
     <Link to={`/@${data.nickname}`} className={cx("wrapper")}>
       <Image
@@ -17,18 +17,18 @@ function AccountItem({ data }) {
         alt={data.full_name}
       />
       <div className={cx("info-box")}>
-        <h4 className={cx("username")}>
-          <span>{data.nickname}</span>
-          {data.tick && <CheckedIcon />}
+        <h4 className={cx("title-wrapper")}>
+          <span className={cx("nickname")}>{data.nickname}</span>
+          {data.tick && <CheckedIcon className={cx("check-icon")} />}
         </h4>
-        <p className={cx("name")}>{data.full_name}</p>
+        <p className={cx("fullname")}>{data.full_name}</p>
       </div>
     </Link>
   );
 }
 
-AccountItem.propTypes = {
+SuggestAccountItem.propTypes = {
   data: PropTypes.object.isRequired,
 };
 
-export default AccountItem;
+export default SuggestAccountItem;

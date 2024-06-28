@@ -1,1 +1,1 @@
-export { default } from "./OnlyHeader";
+export { default } from "./OnlyHeader.js";

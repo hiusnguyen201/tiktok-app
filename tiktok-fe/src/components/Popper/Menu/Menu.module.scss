@@ -21,11 +21,11 @@
   padding: 10px 16px;
 
   &:hover {
-    background-color: var(--text-search-color-opacity-6);
+    background-color: var(--primary-text-color-opacity-6);
   }
 
   &.separate {
-    border-top: 1px solid var(--text-search-color-opacity-12);
+    border-top: 1px solid var(--primary-text-color-opacity-12);
   }
 }
 

@@ -32,9 +32,9 @@
 
 // types
 .rounded {
-  border-color: var(--text-search-color-opacity-12);
+  border-color: var(--primary-text-color-opacity-12);
   border-radius: 999px;
-  color: var(--text-search-color-opacity-75);
+  color: var(--primary-text-color-opacity-75);
   background-color: var(--white);
   font-size: 1.4rem;
   font-weight: 700;
@@ -44,7 +44,7 @@
   height: 32px;
 
   &:hover {
-    border-color: var(--text-search-color-opacity-20);
+    border-color: var(--primary-text-color-opacity-20);
   }
 }
 
@@ -75,7 +75,7 @@
   background-color: #fff;
   border-radius: 2px;
   color: var(--text-color);
-  border-color: var(--text-search-color-opacity-12);
+  border-color: var(--primary-text-color-opacity-12);
 }
 
 // size

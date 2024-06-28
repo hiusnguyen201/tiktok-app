@@ -17,6 +17,8 @@ import Search from "~/layouts/components/Search";
 import images from "~/assets/images";
 import config from "~/config";
 
+import fakeUser from "~/fakeUser";
+
 import styles from "./Header.module.scss";
 const cx = classNames.bind(styles); // Support specified object ( .asd-asda )
 
@@ -45,7 +47,7 @@ function Header() {
 
         {/* Item 3 */}
         <div className={cx("actions-box")}>
-          {currentUser ? (
+          {fakeUser ? (
             <>
               <Button
                 className={cx("upload-btn")}
@@ -76,14 +78,14 @@ function Header() {
           )}
 
           <Menu
-            items={currentUser ? USER_MENU : MENU_ITEMS}
+            items={fakeUser ? USER_MENU : MENU_ITEMS}
             onChange={handleMenuChange}
           >
-            {currentUser ? (
+            {fakeUser ? (
               <Image
-                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/7324513474774728705.jpeg?lk3s=a5d48078&nonce=56210&refresh_token=f702cd06050aa4ff4a4289b03e9d5885&x-expires=1719392400&x-signature=%2FA6cWB%2F%2Fp1ic0mDXyzl9GB6lzFQ%3D&shp=a5d48078&shcp=81f88b70"
+                src={fakeUser.avatar}
                 className={cx("user-avatar")}
-                alt="user avatar"
+                alt={fakeUser.full_name}
               />
             ) : (
               <button className={cx("more-action-btn")}>

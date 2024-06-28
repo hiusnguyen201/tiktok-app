@@ -5,7 +5,7 @@ import HeadlessTippy from "@tippyjs/react/headless";
 import * as searchService from "~/services/searchService";
 import { CloseIcon, LoadingIcon, SearchIcon } from "~/components/Icons";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
-import AccountItem from "~/components/AccountItem";
+import SuggestAccountItem from "~/components/SuggestAccountItem";
 import { useDebounce } from "~/hooks";
 
 import styles from "./Search.module.scss";
@@ -66,9 +66,9 @@ function Search() {
         render={(attrs) => (
           <div className={cx("search-result-box")} tabIndex="-1" {...attrs}>
             <PopperWrapper>
-              <h4 className={cx("search-title")}>Accounts</h4>
+              <h3 className={cx("search-title")}>Accounts</h3>
               {searchResult.map((item) => (
-                <AccountItem key={item.id} data={item} />
+                <SuggestAccountItem key={item.id} data={item} />
               ))}
             </PopperWrapper>
           </div>
