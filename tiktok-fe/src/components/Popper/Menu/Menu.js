@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
+import { useSpring, animated } from "@react-spring/web";
 
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import MenuItem from "./MenuItem";
@@ -12,20 +13,54 @@ const cx = classNames.bind(styles);
 const defaultFn = () => {};
 
 function Menu({
+  className,
   children,
+  visible,
+  offset = [12, 12],
   items = [],
   hideOnClick = false,
+  delay = [0, 700],
   onChange = defaultFn,
+  placement = "bottom-end",
+  animation = true,
 }) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
+
+  // Animate
+  const config = { tension: 300, friction: 15 };
+  const initialStyles = { opacity: 0 };
+  const [props, setSpring] = useSpring(() => initialStyles);
+
+  function onMount() {
+    setSpring({
+      opacity: 1,
+      onRest: () => {},
+      config: {
+        ...config,
+        duration: 0,
+      },
+    });
+  }
+
+  function onHide({ unmount }) {
+    handleResetToFirstMenu();
+    setSpring({
+      ...initialStyles,
+      onRest: unmount,
+      config: {
+        ...config,
+        clamp: true,
+        duration: 200,
+      },
+    });
+  }
 
   const renderItems = () => {
     return current.data.map((item, index) => {
       const isParent = !!item.children;
       return (
         <MenuItem
-          className={cx(current.level > 1 && "menu-children")}
           key={index}
           data={item}
           onClick={() => {
@@ -49,25 +84,35 @@ function Menu({
   };
 
   const renderResult = (attrs) => (
-    <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
-      <PopperWrapper className={cx("menu-popper")}>
+    <animated.div
+      className={cx("menu-list", className)}
+      tabIndex="-1"
+      {...attrs}
+      style={props}
+    >
+      <PopperWrapper
+        className={cx(current.level > 1 && "menu-children", "menu-popper")}
+      >
         {history.length > 1 && (
           <Header title={current.title} onBack={handleResetToBackMenu} />
         )}
         <div className={cx("menu-body")}>{renderItems()}</div>
       </PopperWrapper>
-    </div>
+    </animated.div>
   );
 
   return (
     <Tippy
-      interactive
-      offset={[12, 12]}
-      delay={[0, 700]}
+      animation={animation}
+      interactive={true}
+      visible={visible}
+      offset={offset}
+      delay={delay}
       hideOnClick={hideOnClick}
-      placement="bottom-end"
-      onHide={handleResetToFirstMenu}
+      placement={placement}
       render={renderResult}
+      onMount={onMount}
+      onHide={onHide}
     >
       {children}
     </Tippy>

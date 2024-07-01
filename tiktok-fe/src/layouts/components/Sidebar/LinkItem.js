@@ -9,8 +9,13 @@ function LinkItem({ data }) {
     <div className={cx("link-item")}>
       <h4 className={cx("title")}>{data.title}</h4>
       <div className={cx("link-container")}>
-        {data.links.map((item) => (
-          <a className={cx("link")} href={item.href} target="_blank">
+        {data.links.map((item, index) => (
+          <a
+            key={index}
+            className={cx("link")}
+            href={item.href}
+            target="_blank"
+          >
             {item.name}
           </a>
         ))}

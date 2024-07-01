@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import {
   MessageIcon,
   InboxIcon,
-  SeeMoreIcon,
+  EllipsisVerticalIcon,
   PlusIcon,
 } from "~/components/Icons";
-import { MENU_ITEMS, USER_MENU } from "./ConstantMenu";
+import { MENU_ITEMS, USER_MENU } from "./constantMenu";
 import { Menu } from "~/components/Popper";
 import Button from "~/components/Button";
 import Image from "~/components/Image";
@@ -23,8 +23,6 @@ import styles from "./Header.module.scss";
 const cx = classNames.bind(styles); // Support specified object ( .asd-asda )
 
 function Header() {
-  const currentUser = true;
-
   const handleMenuChange = (menuItem) => {
     switch (menuItem.type) {
       case "language":
@@ -89,7 +87,7 @@ function Header() {
               />
             ) : (
               <button className={cx("more-action-btn")}>
-                <SeeMoreIcon />
+                <EllipsisVerticalIcon />
               </button>
             )}
           </Menu>

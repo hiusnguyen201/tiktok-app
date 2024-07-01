@@ -110,8 +110,8 @@ function Sidebar() {
           </h4>
         </a>
 
-        {constantLink.map((item) => (
-          <LinkItem data={item} />
+        {constantLink.map((item, index) => (
+          <LinkItem key={index} data={item} />
         ))}
 
         <p className={cx("copyright")}>© 2024 TikTok</p>

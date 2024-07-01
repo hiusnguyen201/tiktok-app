@@ -191,7 +191,7 @@ export const MENU_ITEMS = [
 export const USER_MENU = [
   {
     icon: <UserIconRegular />,
-    title: "View Profile",
+    title: "View profile",
     to: "/@user",
   },
   {
