@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 
 import { SeekBarVideo } from "~/components/SeekBar";
-import {
+import IconWrapper, {
   PlayIcon,
   PauseIcon,
   ConvertMobileScreenIcon,
 } from "~/components/Icons";
-import AudioControl from "./AudioControl";
+import AudioControl from "~/components/AudioControl";
 
 import styles from "./CardBottom.module.scss";
 const cx = classNames.bind(styles);
@@ -79,15 +79,25 @@ function CardBottom({ data, videoRef }) {
 
         <SeekBarVideo className={cx("seek-bar-box")} videoRef={videoRef} />
 
-        <div className={cx("controls-right")}>
-          <button className={cx("icon-wrapper")}>
+        <div className={cx("actions-right")}>
+          <IconWrapper
+            className={cx("icon-wrapper", "convertMobileScreen-icon-wrapper")}
+            content="Floating Player"
+            placement="top"
+          >
             <ConvertMobileScreenIcon />
-          </button>
-          <AudioControl />
+          </IconWrapper>
+
+          <AudioControl videoRef={videoRef} />
         </div>
       </div>
     </div>
   );
 }
+
+CardBottom.propTypes = {
+  videoRef: PropTypes.object,
+  data: PropTypes.object,
+};
 
 export default CardBottom;

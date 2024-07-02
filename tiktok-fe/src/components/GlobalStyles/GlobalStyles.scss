@@ -38,13 +38,21 @@ a {
 
 // Custom Tippy Tooltip
 body {
+  --tippy-bg: rgba(84, 84, 84, 0.92);
+  --tippy-border-radius: 8px;
+  --tippy-arrow-bg: rgba(84, 84, 84, 0.92);
+  --tippy-text-color: var(--white);
+  --tippy-text-font-size: 1.6rem;
+  --tippy-text-line-height: 2.2rem;
+
   .tippy-box {
-    background-color: rgba(84, 84, 84, 0.92);
-    border-radius: 8px;
+    cursor: auto;
+    background-color: var(--tippy-bg);
+    border-radius: var(--tippy-border-radius);
     font-weight: 600;
-    font-size: 1.6rem;
-    line-height: 2.2rem;
-    color: rgb(255, 255, 255);
+    font-size: var(--tippy-text-font-size);
+    line-height: var(--tippy-text-line-height);
+    color: var(--tippy-text-color);
   }
 
   .tippy-content {
@@ -52,7 +60,7 @@ body {
   }
 
   .tippy-arrow {
-    color: rgba(84, 84, 84, 0.92);
+    color: var(--tippy-arrow-bg);
   }
 
   .tippy-box[data-placement^="bottom"] > .tippy-arrow:before {

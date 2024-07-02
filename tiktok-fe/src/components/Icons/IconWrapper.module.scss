@@ -1,0 +1,13 @@
+.wrapper {
+  user-select: none;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+}

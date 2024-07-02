@@ -47,11 +47,13 @@ function Video({ videoRef, className }) {
     if (dragging) {
       window.addEventListener("mousemove", handleChangeCurrentTime);
       window.addEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "pointer";
     }
 
     return () => {
       window.removeEventListener("mousemove", handleChangeCurrentTime);
       window.removeEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "auto";
     };
   }, [dragging]);
 

@@ -3,7 +3,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { Link } from "react-router-dom";
 
-import {
+import IconWrapper, {
   MessageIcon,
   InboxIcon,
   EllipsisVerticalIcon,
@@ -44,7 +44,7 @@ function Header() {
         <Search />
 
         {/* Item 3 */}
-        <div className={cx("actions-box")}>
+        <div className={cx("header-right-container")}>
           {fakeUser ? (
             <>
               <Button
@@ -56,18 +56,14 @@ function Header() {
                 Upload
               </Button>
 
-              <Tippy delay={[0, 200]} content="Messages" placement="bottom">
-                <button className={cx("action-btn")}>
-                  <MessageIcon />
-                </button>
-              </Tippy>
+              <IconWrapper content="Messages">
+                <MessageIcon />
+              </IconWrapper>
 
-              <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
-                <button className={cx("action-btn")}>
-                  <span className={cx("badge")}>3</span>
-                  <InboxIcon />
-                </button>
-              </Tippy>
+              <IconWrapper content="Inbox">
+                <span className={cx("badge")}>3</span>
+                <InboxIcon />
+              </IconWrapper>
             </>
           ) : (
             <>

@@ -21,6 +21,20 @@
   border-bottom-right-radius: 16px;
 }
 
+.icon-wrapper {
+  color: var(--white);
+  padding: 8px;
+}
+
+.convertMobileScreen-icon-wrapper {
+  --tippy-bg: rgba(56, 56, 56, 0.95);
+  --tippy-border-radius: 32px;
+  --tippy-arrow-bg: transparent;
+  --tippy-text-color: var(--white);
+  --tippy-text-font-size: 1.4rem;
+  --tippy-text-line-height: 1.8rem;
+}
+
 .author,
 .description,
 .more-btn {
@@ -100,7 +114,7 @@
   align-self: center;
 }
 
-.controls-right {
+.actions-right {
   display: flex;
   align-items: end;
 }
