@@ -78,6 +78,9 @@ function VideoControl({ video, className }) {
         <div
           ref={seekBarProgressRef}
           onClick={handleChangeCurrentTime}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleChangeCurrentTime}
           className={cx("seek-bar-progress")}
         ></div>
       </div>

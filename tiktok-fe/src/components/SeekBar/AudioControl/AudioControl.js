@@ -74,6 +74,9 @@ function AudioControl({ video, className }) {
           <div
             ref={progressRef}
             onClick={handleChangeVolume}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleChangeVolume}
             className={cx("progress")}
           >
             <div
@@ -86,6 +89,9 @@ function AudioControl({ video, className }) {
           <div
             ref={barRef}
             onClick={handleChangeVolume}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleChangeVolume}
             className={cx("bar")}
           ></div>
         </div>
