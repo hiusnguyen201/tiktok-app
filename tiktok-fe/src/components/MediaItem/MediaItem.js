@@ -1,38 +1,45 @@
 import PropTypes from "prop-types";
-import { useRef } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 
 import videos from "~/assets/videos";
-
+import Video from "~/components/Video";
 import CardTop from "./CardTop";
 import CardBottom from "./CardBottom";
 
 import styles from "./MediaItem.module.scss";
 const cx = classNames.bind(styles);
 
+export const VideoContext = createContext();
+
 function MediaItem({ data }) {
-  const videoRef = useRef();
-
-  const handleEnded = () => {
-    videoRef.current.currentTime = 0;
-    videoRef.current.play();
-  };
-
-  console.log(1);
+  const [video, setVideo] = useState();
 
   return (
     <div className={cx("item-container")}>
       <div className={cx("media-wrapper")}>
-        <CardTop className={cx("card-top")} />
+        <CardTop />
 
-        <video onEnded={handleEnded} ref={videoRef} src={videos.vid} />
+        <Video
+          onLoadedData={(e) => setVideo(e.target)}
+          src={videos.vid}
+          loop
+        />
 
-        <CardBottom videoRef={videoRef} />
+        {video && (
+          <VideoContext.Provider value={{ video }}>
+            <CardBottom data={data} />
+          </VideoContext.Provider>
+        )}
       </div>
 
       <div className={cx("actions-wrapper")}>actions</div>
     </div>
   );
 }
+
+MediaItem.propTypes = {
+  data: PropTypes.object,
+};
 
 export default MediaItem;

@@ -1,1 +1,2 @@
-export { default as SeekBarVideo } from "./Video.js";
+export { default as AudioSeekBar } from "./AudioControl";
+export { default as VideoSeekBar } from "./VideoControl";

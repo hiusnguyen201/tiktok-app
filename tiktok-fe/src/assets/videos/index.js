@@ -1,5 +1,5 @@
 const videos = {
-  vid: require("~/assets/videos/video.mov"),
+  vid: require("~/assets/videos/download.mp4"),
 };
 
 export default videos;

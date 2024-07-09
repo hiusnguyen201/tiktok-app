@@ -1,47 +1,32 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 
-import { SeekBarVideo } from "~/components/SeekBar";
-import IconWrapper, {
-  PlayIcon,
-  PauseIcon,
-  ConvertMobileScreenIcon,
-} from "~/components/Icons";
-import AudioControl from "~/components/AudioControl";
+import ControlsBottom from "./ControlsBottom";
 
 import styles from "./CardBottom.module.scss";
 const cx = classNames.bind(styles);
 
-function CardBottom({ data, videoRef }) {
-  const [expanded, setExpanded] = useState(false);
-  const [played, setPlayed] = useState(false);
+function CardBottom({ data }) {
+  // const [expanded, setExpanded] = useState(false);
+  // const [played, setPlayed] = useState(false);
 
-  const handleToggleExpandDescription = () => {
-    setExpanded(!expanded);
-  };
+  // const handleToggleExpandDescription = () => {
+  //   setExpanded(!expanded);
+  // };
 
-  const handleTogglePlayVideo = () => {
-    if (played) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-    }
-
-    setPlayed(!played);
-  };
-
-  console.log(3);
+  //   setPlayed(!played);
+  // };
 
   return (
     <div className={cx("wrapper")}>
-      <h3 className={cx("author")}>
+      {/* <h3 className={cx("author")}>
         <Link to={"/@luongquynhnhu1422"}>luongquynhnhu1422</Link>
-      </h3>
+      </h3> */}
 
       {/* tach */}
-      <div className={cx("multiline-text", { expanded })}>
+      {/* <div className={cx("multiline-text", { expanded })}>
         <p className={cx("description")}>
           <span>
             Mày sai voi xa hoi , bo me may bao ve may Nhung may sai voi chi em
@@ -67,37 +52,16 @@ function CardBottom({ data, videoRef }) {
         >
           {expanded ? "less" : "more"}
         </button>
-      </div>
+      </div> */}
 
-      <div className={cx("controls-bottom")}>
-        <button
-          onClick={handleTogglePlayVideo}
-          className={cx("icon-wrapper", "togglePlay-icon-wrapper")}
-        >
-          {played ? <PauseIcon /> : <PlayIcon />}
-        </button>
-
-        <SeekBarVideo className={cx("seek-bar-box")} videoRef={videoRef} />
-
-        <div className={cx("actions-right")}>
-          <IconWrapper
-            className={cx("icon-wrapper", "convertMobileScreen-icon-wrapper")}
-            content="Floating Player"
-            placement="top"
-          >
-            <ConvertMobileScreenIcon />
-          </IconWrapper>
-
-          <AudioControl videoRef={videoRef} />
-        </div>
-      </div>
+      <ControlsBottom />
     </div>
   );
 }
 
-CardBottom.propTypes = {
-  videoRef: PropTypes.object,
-  data: PropTypes.object,
-};
+// CardBottom.propTypes = {
+//   videoRef: PropTypes.object,
+//   data: PropTypes.object,
+// };
 
-export default CardBottom;
+export default memo(CardBottom);

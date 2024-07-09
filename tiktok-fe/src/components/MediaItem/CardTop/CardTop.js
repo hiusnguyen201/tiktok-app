@@ -10,7 +10,6 @@ import styles from "./CardTop.module.scss";
 const cx = classNames.bind(styles);
 
 function CardTop({ className }) {
-  console.log(2);
   return (
     <div className={cx("wrapper", className)}>
       <div></div>
