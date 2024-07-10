@@ -86,7 +86,6 @@ function Menu({
   const renderResult = (attrs) => (
     <animated.div
       className={cx("menu-list", className)}
-      tabIndex="-1"
       {...attrs}
       style={props}
     >
@@ -103,6 +102,7 @@ function Menu({
 
   return (
     <Tippy
+      tabIndex="-1"
       animation={animation}
       interactive={true}
       visible={visible}

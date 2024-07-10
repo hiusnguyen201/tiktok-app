@@ -17,9 +17,10 @@ function IconWrapper({
   onClick,
 }) {
   return (
-    <div className={cx("wrapper", className)}>
+    <div onClick={onClick} className={cx("wrapper", className)}>
       {tooltip ? (
         <Tippy
+          tabIndex="-1"
           visible={visible}
           animation={animation}
           interactive={interactive}
@@ -29,9 +30,7 @@ function IconWrapper({
           <button className={cx("action-btn")}>{children}</button>
         </Tippy>
       ) : (
-        <button onClick={onClick} className={cx("action-btn")}>
-          {children}
-        </button>
+        <button className={cx("action-btn")}>{children}</button>
       )}
     </div>
   );

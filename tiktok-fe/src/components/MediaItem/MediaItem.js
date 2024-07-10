@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import { createContext, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
+import { createContext, useState } from "react";
 
 import videos from "~/assets/videos";
 import Video from "~/components/Video";
 import CardTop from "./CardTop";
 import CardBottom from "./CardBottom";
+import MenuActions from "./MenuActions";
 
 import styles from "./MediaItem.module.scss";
 const cx = classNames.bind(styles);
@@ -33,7 +34,7 @@ function MediaItem({ data }) {
         )}
       </div>
 
-      <div className={cx("actions-wrapper")}>actions</div>
+      <MenuActions />
     </div>
   );
 }

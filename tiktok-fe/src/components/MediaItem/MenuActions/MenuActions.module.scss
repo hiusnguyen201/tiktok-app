@@ -1,0 +1,139 @@
+.wrapper {
+  align-self: end;
+}
+
+.image-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin: 8px 0 6px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: var(--primary-text-color-opacity-6);
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.user-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.follow-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-color: rgb(254, 44, 85);
+  color: var(--white);
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &:hover {
+    background-color: rgb(234, 40, 78);
+  }
+}
+
+.strong-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-text-color-opacity-75);
+}
+
+.heart-icon.active {
+  color: rgb(254, 44, 85);
+}
+
+.bookmark-icon.active {
+  color: rgb(250, 206, 21);
+}
+
+.profile-container {
+  width: 320px;
+  padding: 20px;
+  background-color: var(--white);
+  box-shadow: var(--black-opacity-12) 0px 4px 16px;
+  border-radius: 8px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+}
+
+.profile-image .avatar {
+  width: 44px;
+  height: 44px;
+}
+
+.title-wrapper,
+.title-link {
+  display: flex;
+  align-items: center;
+}
+
+.nickname {
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.user-stat {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+
+  .text {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  .desc {
+    font-size: 1.7rem;
+    color: var(--primary-text-color-opacity-75);
+  }
+
+  .desc:not(:last-child) {
+    margin-right: 12px;
+  }
+}
+
+.bio-text {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--primary-text-color-opacity-12);
+  font-size: 1.4rem;
+}

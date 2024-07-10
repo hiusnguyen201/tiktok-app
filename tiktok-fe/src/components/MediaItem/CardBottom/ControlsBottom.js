@@ -9,6 +9,8 @@ import IconWrapper, {
   PlayIcon,
   PauseIcon,
   ConvertMobileScreenIcon,
+  ArrowUpIconSolid,
+  ArrowUpMuteIconSolid,
 } from "~/components/Icons";
 import { AudioSeekBar, VideoSeekBar } from "~/components/SeekBar";
 
@@ -18,6 +20,7 @@ const cx = classNames.bind(styles);
 function ControlsBottom() {
   const { video } = useContext(VideoContext);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isAutoScroll, setIsAutoScroll] = useState(true);
 
   const handleTogglePlayVideo = () => {
     if (isPlaying) {
@@ -28,7 +31,10 @@ function ControlsBottom() {
     setIsPlaying(!isPlaying);
   };
 
-  console.log(3);
+  const handleToggleAutoScroll = () => {
+    console.log(1);
+    setIsAutoScroll(!isAutoScroll);
+  };
 
   return (
     <div className={cx("controls-bottom")}>
@@ -53,6 +59,14 @@ function ControlsBottom() {
           placement="top"
         >
           <ConvertMobileScreenIcon />
+        </IconWrapper>
+
+        <IconWrapper
+          onClick={handleToggleAutoScroll}
+          className={cx("toggleAutoScroll-icon-wrapper")}
+          content={`Auto Scroll is ${isAutoScroll ? "on" : "off"} `}
+        >
+          {isAutoScroll ? <ArrowUpIconSolid /> : <ArrowUpMuteIconSolid />}
         </IconWrapper>
 
         <AudioSeekBar

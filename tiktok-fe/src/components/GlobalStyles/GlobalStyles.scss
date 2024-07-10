@@ -34,6 +34,11 @@ a {
   color: var(--text-color);
   text-decoration: none;
   font-family: var(--primary-font);
+  max-width: 100%;
+}
+
+ul {
+  list-style-type: none;
 }
 
 // Custom Tippy Tooltip
@@ -44,6 +49,7 @@ body {
   --tippy-text-color: var(--white);
   --tippy-text-font-size: 1.6rem;
   --tippy-text-line-height: 2.2rem;
+  --tippy-content-padding: 8px;
 
   .tippy-box {
     cursor: auto;
@@ -53,10 +59,11 @@ body {
     font-size: var(--tippy-text-font-size);
     line-height: var(--tippy-text-line-height);
     color: var(--tippy-text-color);
+    z-index: 9;
   }
 
   .tippy-content {
-    padding: 8px;
+    padding: var(--tippy-content-padding);
   }
 
   .tippy-arrow {

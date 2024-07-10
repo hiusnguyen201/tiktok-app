@@ -49,18 +49,24 @@ function Header() {
             <>
               <Button
                 className={cx("upload-btn")}
-                primary
+                primary2
                 outline
                 leftIcon={<PlusIcon />}
               >
                 Upload
               </Button>
 
-              <IconWrapper content="Messages">
+              <IconWrapper
+                className={cx("message-icon-wrapper")}
+                content="Messages"
+              >
                 <MessageIcon />
               </IconWrapper>
 
-              <IconWrapper content="Inbox">
+              <IconWrapper
+                className={cx("inbox-icon-wrapper")}
+                content="Inbox"
+              >
                 <span className={cx("badge")}>3</span>
                 <InboxIcon />
               </IconWrapper>

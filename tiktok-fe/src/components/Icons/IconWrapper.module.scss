@@ -1,14 +1,19 @@
-.wrapper {
-  user-select: none;
-  padding: 8px;
-}
-
+.wrapper,
 .action-btn {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.wrapper {
+  user-select: none;
+  padding: 8px;
+  height: 100%;
+}
+
+.action-btn {
   color: inherit;
   background-color: transparent;
-  cursor: pointer;
   position: relative;
 }

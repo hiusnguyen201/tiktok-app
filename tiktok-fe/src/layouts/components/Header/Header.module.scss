@@ -77,3 +77,14 @@
   margin-left: 8px;
   cursor: pointer;
 }
+
+.message-icon-wrapper,
+.inbox-icon-wrapper {
+  padding: 0px;
+  height: auto;
+}
+
+.message-icon-wrapper {
+  height: 32px;
+  width: 32px;
+}

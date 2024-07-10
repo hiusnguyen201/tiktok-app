@@ -1,8 +1,14 @@
 .wrapper {
   display: flex;
   align-items: center;
-  cursor: pointer;
+  justify-content: space-between;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
   padding: 9px 16px;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--primary-text-color-opacity-3);
@@ -17,9 +23,10 @@
 }
 
 .info-box {
-  margin-left: 12px;
+  max-width: 70%;
   display: flex;
   flex-direction: column;
+  margin-left: 12px;
 }
 
 .action-container {
@@ -30,28 +37,27 @@
 .title-wrapper {
   display: flex;
   align-items: center;
-}
-
-.nickname,
-.fullname {
-  display: inline-block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 320px;
+  justify-content: center;
 }
 
 .nickname {
   font-size: 1.6rem;
+  font-weight: 600;
 }
 
-.fullname {
+.username {
   color: var(--primary-text-color-opacity-50);
   font-size: 1.4rem;
+  font-weight: 400;
 }
 
 .check-icon {
-  margin-left: 4px;
-  font-size: 1.2rem;
+  width: 15.47px;
   color: rgb(32, 213, 236);
+}
+
+.actions-box {
+  width: 24px;
+  height: 22px;
+  margin-left: 8px;
 }

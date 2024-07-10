@@ -88,6 +88,13 @@
   animation: spinner 0.8s linear infinite;
 }
 
+.account-item {
+  .info-box {
+    max-width: 200px;
+    color: red;
+  }
+}
+
 @keyframes spinner {
   from {
     transform: translateY(-50%) rotate(0);

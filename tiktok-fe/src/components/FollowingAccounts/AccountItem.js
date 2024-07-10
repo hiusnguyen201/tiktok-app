@@ -4,8 +4,10 @@ import classNames from "classnames/bind";
 
 import Image from "~/components/Image";
 import { CheckedIcon } from "~/components/Icons";
-import styles from "./FollowingAccounts.module.scss";
+
 import fakeUser from "~/fakeUser";
+import styles from "./FollowingAccounts.module.scss";
+import EllipsisText from "~/components/EllipsisText";
 const cx = classNames.bind(styles);
 
 function AccountItem({ data }) {
@@ -18,10 +20,14 @@ function AccountItem({ data }) {
       />
       <div className={cx("info-box")}>
         <h4 className={cx("title-wrapper")}>
-          <span className={cx("nickname")}>{fakeUser.nickname}</span>
+          <EllipsisText className={cx("nickname")}>
+            {fakeUser.nickname}
+          </EllipsisText>
           {fakeUser.tick && <CheckedIcon className={cx("check-icon")} />}
         </h4>
-        <p className={cx("fullname")}>{fakeUser.full_name}</p>
+        <EllipsisText className={cx("username")}>
+          {fakeUser.username}
+        </EllipsisText>
       </div>
     </Link>
   );

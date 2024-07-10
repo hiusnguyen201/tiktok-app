@@ -17,6 +17,7 @@ function Button({
   onClick,
   leftIcon,
   rightIcon,
+  primary2,
   ...passProps
 }) {
   let Component = "button";
@@ -35,7 +36,7 @@ function Button({
 
   const classes = cx(
     "wrapper",
-    { primary, outline, small, large, rounded },
+    { primary, primary2, outline, small, large, rounded },
     className
   );
 
@@ -52,6 +53,7 @@ Button.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
   primary: PropTypes.bool,
+  primary2: PropTypes.bool,
   outline: PropTypes.bool,
   small: PropTypes.bool,
   large: PropTypes.bool,
