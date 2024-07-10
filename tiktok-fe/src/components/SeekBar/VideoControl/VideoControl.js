@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import { memo, useContext, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 
 import styles from "./VideoControl.module.scss";
 const cx = classNames.bind(styles);
 
-function VideoControl({ video, className }) {
+function VideoControl({ video, isPlaying, className }) {
   const [dragging, setDragging] = useState(false);
   const seekBarCurrentRef = useRef();
   const seekBarProgressRef = useRef();
@@ -16,25 +16,27 @@ function VideoControl({ video, className }) {
   };
 
   const handleMouseUp = () => {
-    video.play();
+    if (isPlaying) video.play();
     setDragging(false);
   };
 
   const handleChangeCurrentTime = (e) => {
     if (!dragging && e.type !== "click") return;
 
-    const progressWidth = seekBarProgressRef.current.offsetWidth;
-    let currentWidth =
-      e.clientX - seekBarProgressRef.current.getBoundingClientRect().left;
+    const seekBarProgress = seekBarProgressRef.current;
 
-    if (currentWidth < 0) {
-      currentWidth = 0;
-    } else if (currentWidth > progressWidth) {
-      currentWidth = progressWidth;
+    let diffWidthPercent =
+      (e.clientX - seekBarProgress.getBoundingClientRect().left) /
+      seekBarProgress.offsetWidth;
+
+    if (diffWidthPercent < 0) {
+      diffWidthPercent = 0;
+    } else if (diffWidthPercent > 1) {
+      diffWidthPercent = 1;
     }
 
-    seekBarCurrentRef.current.style.width = currentWidth + "px";
-    video.currentTime = video.duration * (currentWidth / progressWidth);
+    seekBarCurrentRef.current.style.width = diffWidthPercent * 100 + "%";
+    video.currentTime = video.duration * diffWidthPercent;
   };
 
   useEffect(() => {
@@ -66,13 +68,16 @@ function VideoControl({ video, className }) {
 
   return (
     <div className={cx("wrapper", className)}>
-      <div className={cx("seek-bar-container")}>
-        <div ref={seekBarCurrentRef} className={cx("seek-bar-current")}>
+      <div className={cx("video-control-container")}>
+        <div
+          ref={seekBarCurrentRef}
+          className={cx("video-control-current")}
+        >
           <div
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseMove={handleChangeCurrentTime}
-            className={cx("seek-bar-circle")}
+            className={cx("video-control-circle")}
           ></div>
         </div>
         <div
@@ -81,7 +86,7 @@ function VideoControl({ video, className }) {
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onMouseMove={handleChangeCurrentTime}
-          className={cx("seek-bar-progress")}
+          className={cx("video-control-progress")}
         ></div>
       </div>
     </div>

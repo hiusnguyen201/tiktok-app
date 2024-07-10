@@ -1,25 +1,25 @@
 import classNames from "classnames/bind";
 import { useRef, useState, memo, useEffect } from "react";
 
-import { VolumeIcon, VolumeMuteIconSolid } from "~/components/Icons";
 import styles from "./AudioControl.module.scss";
 const cx = classNames.bind(styles);
 
-function AudioControl({ video, className }) {
+function AudioControl({ video, icon, mutedIcon, className }) {
   const [dragging, setDragging] = useState(false);
-  const [volumeValue, setVolumeValue] = useState({ pre: null, curr: 1 });
-  const barRef = useRef();
-  const progressRef = useRef();
+  const [volumeValue, setVolumeValue] = useState({ prev: null, curr: 1 });
+  const seekBarCurrentRef = useRef();
+  const seekBarProgressRef = useRef();
 
   const handleToggleMute = () => {
+    const seekBarCurrent = seekBarCurrentRef.current;
     if (volumeValue.curr > 0) {
       video.volume = 0;
-      setVolumeValue({ pre: volumeValue.curr, curr: 0 });
-      progressRef.current.style.height = 0 + "px";
+      setVolumeValue({ prev: volumeValue.curr, curr: 0 });
+      seekBarCurrent.style.height = 0 + "px";
     } else {
-      video.volume = volumeValue.pre;
-      setVolumeValue({ pre: volumeValue.curr, curr: volumeValue.pre });
-      progressRef.current.style.height = (volumeValue.pre / 1) * 100 + "%";
+      video.volume = volumeValue.prev;
+      setVolumeValue({ prev: volumeValue.curr, curr: volumeValue.prev });
+      seekBarCurrent.style.height = (volumeValue.prev / 1) * 100 + "%";
     }
   };
 
@@ -29,7 +29,7 @@ function AudioControl({ video, className }) {
 
   const handleMouseUp = () => {
     setVolumeValue({
-      pre: volumeValue.curr,
+      prev: volumeValue.curr,
       curr: video.volume,
     });
     setDragging(false);
@@ -38,19 +38,21 @@ function AudioControl({ video, className }) {
   const handleChangeVolume = (e) => {
     if (!dragging && e.type !== "click") return;
 
-    let progress =
-      barRef.current.getBoundingClientRect().bottom - e.clientY;
+    const seekBarProgress = seekBarProgressRef.current;
 
-    if (progress < 0) {
-      progress = 0;
-    } else if (progress > barRef.current.offsetHeight) {
-      progress = barRef.current.offsetHeight;
+    let diffHeightPercent =
+      (seekBarProgress.getBoundingClientRect().bottom - e.clientY) /
+      seekBarProgress.offsetHeight;
+
+    if (diffHeightPercent < 0) {
+      diffHeightPercent = 0;
+    } else if (diffHeightPercent > 1) {
+      diffHeightPercent = 1;
     }
 
-    progressRef.current.style.height = progress + "px";
+    seekBarCurrentRef.current.style.height = diffHeightPercent * 100 + "%";
 
-    video.volume = 1 * (progress / barRef.current.offsetHeight);
-    setVolumeValue({ ...volumeValue, curr: video.volume });
+    video.volume = 1 * diffHeightPercent;
   };
 
   useEffect(() => {
@@ -72,33 +74,29 @@ function AudioControl({ video, className }) {
       <div className={cx("audio-control-top", { dragging })}>
         <div className={cx("volume-control-container")}>
           <div
-            ref={progressRef}
-            onClick={handleChangeVolume}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleChangeVolume}
-            className={cx("progress")}
+            ref={seekBarCurrentRef}
+            className={cx("volume-control-current")}
           >
             <div
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
               onMouseMove={handleChangeVolume}
-              className={cx("circle")}
+              className={cx("volume-control-circle")}
             ></div>
           </div>
           <div
-            ref={barRef}
+            ref={seekBarProgressRef}
             onClick={handleChangeVolume}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseMove={handleChangeVolume}
-            className={cx("bar")}
+            className={cx("volume-control-progress")}
           ></div>
         </div>
       </div>
 
       <div className={cx("icon-wrapper")} onClick={handleToggleMute}>
-        {volumeValue.curr > 0 ? <VolumeIcon /> : <VolumeMuteIconSolid />}
+        {volumeValue.curr > 0 ? icon : mutedIcon}
       </div>
     </div>
   );

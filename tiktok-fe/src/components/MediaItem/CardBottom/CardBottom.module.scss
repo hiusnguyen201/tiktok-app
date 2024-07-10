@@ -21,18 +21,20 @@
   border-bottom-right-radius: 16px;
 }
 
-.icon-wrapper {
-  color: var(--white);
-  padding: 8px;
-}
-
 .convertMobileScreen-icon-wrapper {
+  color: var(--white);
   --tippy-bg: rgba(56, 56, 56, 0.95);
   --tippy-border-radius: 32px;
   --tippy-arrow-bg: transparent;
   --tippy-text-color: var(--white);
   --tippy-text-font-size: 1.4rem;
   --tippy-text-line-height: 1.8rem;
+}
+
+.togglePlay-icon-wrapper {
+  padding: 10px;
+  color: var(--white);
+  align-self: center;
 }
 
 .author,
@@ -86,19 +88,6 @@
   line-height: 18px;
   padding: 1px 6px;
   cursor: pointer;
-}
-
-.icon-wrapper {
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--white);
-}
-
-.togglePlay-icon-wrapper {
-  padding: 10px;
 }
 
 .controls-bottom {

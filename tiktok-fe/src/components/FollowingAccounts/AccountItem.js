@@ -8,7 +8,7 @@ import styles from "./FollowingAccounts.module.scss";
 import fakeUser from "~/fakeUser";
 const cx = classNames.bind(styles);
 
-function AccountItem() {
+function AccountItem({ data }) {
   return (
     <Link to={`/@${fakeUser.nickname}`} className={cx("account-item")}>
       <Image

@@ -13,18 +13,26 @@ function IconWrapper({
   className,
   content,
   children,
+  tooltip = true,
+  onClick,
 }) {
   return (
     <div className={cx("wrapper", className)}>
-      <Tippy
-        visible={visible}
-        animation={animation}
-        interactive={interactive}
-        content={content}
-        placement={placement}
-      >
-        <button className={cx("action-btn")}>{children}</button>
-      </Tippy>
+      {tooltip ? (
+        <Tippy
+          visible={visible}
+          animation={animation}
+          interactive={interactive}
+          content={content}
+          placement={placement}
+        >
+          <button className={cx("action-btn")}>{children}</button>
+        </Tippy>
+      ) : (
+        <button onClick={onClick} className={cx("action-btn")}>
+          {children}
+        </button>
+      )}
     </div>
   );
 }
@@ -34,7 +42,7 @@ IconWrapper.propTypes = {
   interactive: PropTypes.bool,
   placement: PropTypes.string,
   className: PropTypes.string,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

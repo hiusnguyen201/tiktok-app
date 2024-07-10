@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { useEffect, useRef, useState } from "react";
+import { useState, useContext } from "react";
 
 import { VideoContext } from "../MediaItem";
 import IconWrapper, {
+  VolumeIcon,
+  VolumeMuteIconSolid,
   PlayIcon,
   PauseIcon,
   ConvertMobileScreenIcon,
@@ -11,7 +13,6 @@ import IconWrapper, {
 import { AudioSeekBar, VideoSeekBar } from "~/components/SeekBar";
 
 import styles from "./CardBottom.module.scss";
-import { useContext } from "react";
 const cx = classNames.bind(styles);
 
 function ControlsBottom() {
@@ -27,30 +28,38 @@ function ControlsBottom() {
     setIsPlaying(!isPlaying);
   };
 
+  console.log(3);
+
   return (
     <div className={cx("controls-bottom")}>
-      <button
+      <IconWrapper
+        tooltip={false}
         onClick={handleTogglePlayVideo}
-        className={cx("icon-wrapper", "togglePlay-icon-wrapper")}
+        className={cx("togglePlay-icon-wrapper")}
       >
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
-      </button>
+      </IconWrapper>
 
-      <VideoSeekBar video={video} className={cx("seek-bar-box")} />
+      <VideoSeekBar
+        isPlaying={isPlaying}
+        video={video}
+        className={cx("seek-bar-box")}
+      />
 
       <div className={cx("actions-right")}>
         <IconWrapper
-          className={cx(
-            "icon-wrapper",
-            "convertMobileScreen-icon-wrapper"
-          )}
+          className={cx("convertMobileScreen-icon-wrapper")}
           content="Floating Player"
           placement="top"
         >
           <ConvertMobileScreenIcon />
         </IconWrapper>
 
-        <AudioSeekBar video={video} />
+        <AudioSeekBar
+          video={video}
+          icon={<VolumeIcon />}
+          mutedIcon={<VolumeMuteIconSolid />}
+        />
       </div>
     </div>
   );
