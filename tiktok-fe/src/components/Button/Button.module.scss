@@ -5,6 +5,7 @@
   min-width: 100px;
   font-family: inherit;
   padding: 8px 16px;
+  gap: var(--button-icon-title-spacer);
   font-size: inherit;
   font-weight: 700;
   border-radius: 4px;
@@ -12,23 +13,12 @@
   cursor: pointer;
   background-color: var(--white);
   user-select: none;
-
-  + .wrapper {
-    margin-left: 8px;
-  }
-}
-
-.icon + .title,
-.title + .icon {
-  margin-left: 8px;
 }
 
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
 }
 
 // types

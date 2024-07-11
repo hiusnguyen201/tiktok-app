@@ -25,3 +25,8 @@ export const convertToShortTextNumber = (number) => {
       : (+data.floatNum).toFixed(0)) + "M"
   );
 };
+
+export const spliceArray = (arr, limit) => {
+  const newArr = [...arr];
+  return newArr.splice(0, limit);
+};

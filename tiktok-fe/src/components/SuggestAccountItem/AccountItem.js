@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 
-import { CheckedIcon } from "~/components/Icons";
+import { CircleCheckIconSolid } from "~/components/Icons";
 import Image from "~/components/Image";
 import EllipsisText from "~/components/EllipsisText";
 import fakeUser from "~/fakeUser";
@@ -25,7 +25,9 @@ function AccountItem({ data, className }) {
               {fakeUser.nickname}
             </EllipsisText>
 
-            {fakeUser.tick && <CheckedIcon className={cx("check-icon")} />}
+            {fakeUser.tick && (
+              <CircleCheckIconSolid className={cx("check-icon")} />
+            )}
           </h4>
           <EllipsisText className={cx("username")}>
             {fakeUser.username}

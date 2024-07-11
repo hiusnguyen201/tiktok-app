@@ -13,6 +13,7 @@ function CardTop({ className }) {
   return (
     <div className={cx("wrapper", className)}>
       <div></div>
+
       <Menu
         className={cx("controls-top")}
         offset={[-4, 24]}
@@ -27,5 +28,9 @@ function CardTop({ className }) {
     </div>
   );
 }
+
+CardTop.propTypes = {
+  className: PropTypes.string,
+};
 
 export default memo(CardTop);

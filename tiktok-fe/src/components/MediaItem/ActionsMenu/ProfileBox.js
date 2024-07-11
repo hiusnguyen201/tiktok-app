@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react/headless";
 
-import { CheckedIcon } from "~/components/Icons";
+import { CircleCheckIconSolid } from "~/components/Icons";
 import Image from "~/components/Image";
 import Button from "~/components/Button";
 import EllipsisText from "~/components/EllipsisText";
-import { convertToShortTextNumber } from "~/utils/formatText";
+import { convertToShortTextNumber } from "~/utils/convertData";
 import fakeUser from "~/fakeUser";
 
-import styles from "./MenuActions.module.scss";
+import styles from "./ActionsMenu.module.scss";
 import { useEffect, useState } from "react";
 const cx = classNames.bind(styles);
 
@@ -39,7 +39,9 @@ function ProfileBox({ children }) {
           <EllipsisText className={cx("nickname")}>
             {fakeUser.nickname}
           </EllipsisText>
-          {fakeUser.tick && <CheckedIcon className={cx("check-icon")} />}
+          {fakeUser.tick && (
+            <CircleCheckIconSolid className={cx("check-icon")} />
+          )}
         </Link>
       </h4>
       <Link className={cx("username")} to={"/"}>

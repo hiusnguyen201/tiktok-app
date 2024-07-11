@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 
 import Image from "~/components/Image";
-import { CheckedIcon } from "~/components/Icons";
+import { CircleCheckIconSolid } from "~/components/Icons";
 
 import fakeUser from "~/fakeUser";
 import styles from "./FollowingAccounts.module.scss";
@@ -23,7 +23,9 @@ function AccountItem({ data }) {
           <EllipsisText className={cx("nickname")}>
             {fakeUser.nickname}
           </EllipsisText>
-          {fakeUser.tick && <CheckedIcon className={cx("check-icon")} />}
+          {fakeUser.tick && (
+            <CircleCheckIconSolid className={cx("check-icon")} />
+          )}
         </h4>
         <EllipsisText className={cx("username")}>
           {fakeUser.username}

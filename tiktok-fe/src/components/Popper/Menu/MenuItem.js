@@ -6,7 +6,11 @@ import styles from "./Menu.module.scss";
 const cx = classNames.bind(styles);
 
 function MenuItem({ data, onClick, className }) {
-  const classes = cx("menu-item", { separate: data.separate }, className);
+  const classes = cx(
+    "menu-item",
+    { separate: data.separate, more: data.type === "more" },
+    className
+  );
 
   return (
     <Button
@@ -15,7 +19,7 @@ function MenuItem({ data, onClick, className }) {
       to={data.to}
       onClick={onClick}
     >
-      {data.title}
+      {data.title || ""}
     </Button>
   );
 }

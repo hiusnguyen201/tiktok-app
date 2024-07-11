@@ -1,2 +1,2 @@
 export * from "./Icons";
-export { default } from "./IconWrapper.js";
+export { default } from "./IconTooltip.js";

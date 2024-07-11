@@ -2,7 +2,6 @@ import classNames from "classnames/bind";
 import { useRef, useState, memo, useEffect } from "react";
 
 import styles from "./AudioControl.module.scss";
-import IconWrapper from "~/components/Icons/IconWrapper";
 const cx = classNames.bind(styles);
 
 function AudioControl({ video, icon, mutedIcon, className }) {
@@ -96,9 +95,9 @@ function AudioControl({ video, icon, mutedIcon, className }) {
         </div>
       </div>
 
-      <IconWrapper onClick={handleToggleMute} tooltip={false}>
+      <button className={cx("volume-btn")} onClick={handleToggleMute}>
         {volumeValue.curr > 0 ? icon : mutedIcon}
-      </IconWrapper>
+      </button>
     </div>
   );
 }

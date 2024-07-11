@@ -24,9 +24,69 @@
   --primary-box-shadow-opacity-6: rgba(0, 0, 0, 0.06);
   --primary-box-shadow-opacity-12: rgba(0, 0, 0, 0.12);
 
+  --button-icon-title-spacer: 8px;
+
   // Default layout
   --default-layout-header-height: 60px;
   --default-layout-container-width: 100%;
   --default-layout-sidebar-width: 240px;
   --default-layout-horizontal-spacer: 16px;
+
+  // Tippy Tooltip
+  --tippy-bg: rgba(84, 84, 84, 0.92);
+  --tippy-border-radius: 8px;
+  --tippy-arrow-bg: rgba(84, 84, 84, 0.92);
+  --tippy-text-color: var(--white);
+  --tippy-text-font-size: 1.6rem;
+  --tippy-text-line-height: 2.2rem;
+  --tippy-content-padding: 8px;
+
+  // Popper
+  --menu-popper-padding: 8px 0;
+  --menu-body-padding: 0;
+  --menu-popper-max-height: 100%;
+  --item-popper-title-margin-left: unset;
+  --item-popper-margin: 0;
+  --item-popper-line-height: 21px;
+  --item-popper-font-size: 1.6rem;
+  --item-popper-font-weight: 600;
+  --item-popper-padding: 10px 16px;
+  --item-popper-max-width: 100%;
+  --item-popper-children-max-width: 100%;
+  --item-popper-children-line-height: 18px;
+  --item-popper-children-font-size: 1.4rem;
+  --item-popper-children-padding: 10px 24px;
+  --item-popper-children-font-weight: 400;
+  --item-popper-children-font-family: var(--secondary-font);
+}
+
+// Custom Tippy Tooltip
+body {
+  [data-tippy-root] {
+    z-index: 10 !important;
+  }
+
+  .tippy-box {
+    cursor: auto;
+    background-color: var(--tippy-bg);
+    border-radius: var(--tippy-border-radius);
+    font-weight: 600;
+    font-size: var(--tippy-text-font-size);
+    line-height: var(--tippy-text-line-height);
+    color: var(--tippy-text-color);
+    z-index: 1;
+  }
+
+  .tippy-content {
+    padding: var(--tippy-content-padding);
+  }
+
+  .tippy-arrow {
+    color: var(--tippy-arrow-bg);
+    border: 4px solid inherit;
+  }
+
+  .tippy-box[data-placement^="bottom"] > .tippy-arrow:before {
+    top: -8px;
+  }
 }

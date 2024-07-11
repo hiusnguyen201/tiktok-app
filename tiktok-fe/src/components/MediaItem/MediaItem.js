@@ -6,7 +6,7 @@ import videos from "~/assets/videos";
 import Video from "~/components/Video";
 import CardTop from "./CardTop";
 import CardBottom from "./CardBottom";
-import MenuActions from "./MenuActions";
+import ActionsMenu from "./ActionsMenu";
 
 import styles from "./MediaItem.module.scss";
 const cx = classNames.bind(styles);
@@ -34,7 +34,7 @@ function MediaItem({ data }) {
         )}
       </div>
 
-      <MenuActions />
+      <ActionsMenu />
     </div>
   );
 }

@@ -1,9 +1,7 @@
 import classNames from "classnames/bind";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
 import { Link } from "react-router-dom";
 
-import IconWrapper, {
+import IconTooltip, {
   MessageIcon,
   InboxIcon,
   EllipsisVerticalIcon,
@@ -56,20 +54,20 @@ function Header() {
                 Upload
               </Button>
 
-              <IconWrapper
+              <IconTooltip
                 className={cx("message-icon-wrapper")}
                 content="Messages"
               >
                 <MessageIcon />
-              </IconWrapper>
+              </IconTooltip>
 
-              <IconWrapper
+              <IconTooltip
                 className={cx("inbox-icon-wrapper")}
                 content="Inbox"
               >
                 <span className={cx("badge")}>3</span>
                 <InboxIcon />
-              </IconWrapper>
+              </IconTooltip>
             </>
           ) : (
             <>

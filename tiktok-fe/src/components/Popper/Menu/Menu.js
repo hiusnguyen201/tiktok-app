@@ -63,13 +63,14 @@ function Menu({
       const isParent = !!item.children;
       return (
         <MenuItem
+          className={cx(current.level > 1 && "menu-children")}
           key={index}
           data={item}
-          onClick={() => {
+          onClick={(e) => {
             if (isParent) {
               setHistory((prev) => [...prev, item.children]);
             } else {
-              onChange(item);
+              onChange(item, setHistory);
             }
           }}
         />
@@ -85,22 +86,22 @@ function Menu({
     setHistory((prev) => prev.slice(0, 1));
   };
 
-  const renderResult = (attrs) => (
-    <animated.div
-      className={cx("menu-list", className)}
-      {...attrs}
-      style={props}
-    >
-      <PopperWrapper
-        className={cx(current.level > 1 && "menu-children", "menu-popper")}
+  const renderResult = (attrs) => {
+    return (
+      <animated.div
+        className={cx("menu-list", className)}
+        {...attrs}
+        style={props}
       >
-        {history.length > 1 && (
-          <Header title={current.title} onBack={handleResetToBackMenu} />
-        )}
-        <div className={cx("menu-body")}>{renderItems()}</div>
-      </PopperWrapper>
-    </animated.div>
-  );
+        <PopperWrapper className={cx("menu-popper")}>
+          {history.length > 1 && current.title && (
+            <Header title={current.title} onBack={handleResetToBackMenu} />
+          )}
+          <div className={cx("menu-body")}>{renderItems()}</div>
+        </PopperWrapper>
+      </animated.div>
+    );
+  };
 
   return (
     <Tippy

@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import { useState, useContext } from "react";
 
 import { VideoContext } from "../MediaItem";
-import IconWrapper, {
+import IconTooltip, {
   VolumeIcon,
   VolumeMuteIconSolid,
   PlayIcon,
@@ -38,13 +38,12 @@ function ControlsBottom() {
 
   return (
     <div className={cx("controls-bottom")}>
-      <IconWrapper
-        tooltip={false}
+      <button
         onClick={handleTogglePlayVideo}
         className={cx("togglePlay-icon-wrapper")}
       >
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
-      </IconWrapper>
+      </button>
 
       <VideoSeekBar
         isPlaying={isPlaying}
@@ -53,21 +52,21 @@ function ControlsBottom() {
       />
 
       <div className={cx("actions-right")}>
-        <IconWrapper
+        <IconTooltip
           className={cx("convertMobileScreen-icon-wrapper")}
           content="Floating Player"
           placement="top"
         >
           <ConvertMobileScreenIcon />
-        </IconWrapper>
+        </IconTooltip>
 
-        <IconWrapper
+        <IconTooltip
           onClick={handleToggleAutoScroll}
           className={cx("toggleAutoScroll-icon-wrapper")}
           content={`Auto Scroll is ${isAutoScroll ? "on" : "off"} `}
         >
           {isAutoScroll ? <ArrowUpIconSolid /> : <ArrowUpMuteIconSolid />}
-        </IconWrapper>
+        </IconTooltip>
 
         <AudioSeekBar
           video={video}

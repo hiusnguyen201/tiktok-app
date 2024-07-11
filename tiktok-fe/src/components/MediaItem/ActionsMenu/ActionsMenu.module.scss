@@ -35,19 +35,19 @@
 
 .user-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 20px;
 }
 
 .follow-btn {
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
   background-color: rgb(254, 44, 85);
   color: var(--white);
+  border: 1px solid var(--primary-color);
   border-radius: 50%;
   cursor: pointer;
   position: absolute;
@@ -58,6 +58,12 @@
   &:hover {
     background-color: rgb(234, 40, 78);
   }
+}
+
+.follow-btn.active {
+  color: var(--primary-color);
+  background: var(--white);
+  border: 1px solid var(--primary-text-color-opacity-20);
 }
 
 .strong-text {
@@ -136,4 +142,25 @@
   padding-top: 16px;
   border-top: 1px solid var(--primary-text-color-opacity-12);
   font-size: 1.4rem;
+}
+
+.share-menu {
+  --menu-popper-padding: 0 4px 0 0;
+  --menu-body-padding: 8px 0;
+  --menu-popper-max-height: 448px;
+  --button-icon-title-spacer: 12px;
+  --item-popper-margin: 0 3px 0 4px;
+  --item-popper-font-size: 1.6rem;
+  --item-popper-line-height: 21px;
+  --item-popper-padding: 11px 16px;
+  --item-popper-max-width: 273px;
+  --item-popper-children-max-width: 267px;
+  --item-popper-children-font-size: 1.6rem;
+  --item-popper-children-line-height: 21px;
+  --item-popper-children-font-weight: 600;
+  --item-popper-children-font-family: var(--primary-font);
+
+  background-color: var(--white);
+  border-radius: 8px;
+  min-width: 284px;
 }
