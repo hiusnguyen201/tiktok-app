@@ -14,7 +14,7 @@ function FollowingAccounts({ label }) {
       <AccountItem />
       <AccountItem />
 
-      <p className={cx("more-btn")}>See more</p>
+      <button className={cx("more-btn")}>See more</button>
     </div>
   );
 }

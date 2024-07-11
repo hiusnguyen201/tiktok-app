@@ -6,6 +6,7 @@ import { CheckedIcon } from "~/components/Icons";
 import Image from "~/components/Image";
 import Button from "~/components/Button";
 import EllipsisText from "~/components/EllipsisText";
+import { convertToShortTextNumber } from "~/utils/formatText";
 import fakeUser from "~/fakeUser";
 
 import styles from "./MenuActions.module.scss";
@@ -17,34 +18,6 @@ function ProfileBox({ children }) {
   const [likesText, setLikesText] = useState("--");
 
   useEffect(() => {
-    const convertToShortTextNumber = (number) => {
-      let digits = 0;
-
-      let numberCalDigits = number;
-      while (numberCalDigits > 0) {
-        numberCalDigits = Math.floor(numberCalDigits / 10);
-        digits++;
-      }
-
-      const data = {};
-      if (digits >= 4 && digits <= 6) {
-        data.floatNum = (number / 1000).toFixed(1);
-        data.type = "K";
-      } else if (digits >= 7 && digits <= 9) {
-        data.floatNum = (number / 1000000).toFixed(1);
-        data.type = "M";
-      } else if (digits >= 10) {
-        data.floatNum = (number / 1000000000).toFixed(1);
-        data.type = "T";
-      }
-
-      return (
-        (+data.floatNum.split(".")[1]
-          ? data.floatNum
-          : (+data.floatNum).toFixed(0)) + "M"
-      );
-    };
-
     setTimeout(() => {
       setFollowersText(convertToShortTextNumber(fakeUser.countFollowers));
       setLikesText(convertToShortTextNumber(fakeUser.countLikes));
@@ -87,7 +60,6 @@ function ProfileBox({ children }) {
   return (
     <div>
       <Tippy
-        tabIndex="-1"
         offset={[0, 30]}
         placement="bottom-start"
         delay={[700, 400]}

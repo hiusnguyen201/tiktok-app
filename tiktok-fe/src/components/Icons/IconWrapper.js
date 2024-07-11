@@ -20,7 +20,6 @@ function IconWrapper({
     <div onClick={onClick} className={cx("wrapper", className)}>
       {tooltip ? (
         <Tippy
-          tabIndex="-1"
           visible={visible}
           animation={animation}
           interactive={interactive}

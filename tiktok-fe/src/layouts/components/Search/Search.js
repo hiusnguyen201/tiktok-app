@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import classNames from "classnames/bind";
 import HeadlessTippy from "@tippyjs/react/headless";
 
@@ -16,6 +16,7 @@ function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [tabbed, setTabbed] = useState(false);
 
   const debouncedValue = useDebounce(keyword, 600);
 
@@ -39,6 +40,8 @@ function Search() {
   };
 
   useEffect(() => {
+    if (!keyword) return;
+
     if (!debouncedValue.trim()) {
       setSearchResult([]);
       return;
@@ -56,6 +59,18 @@ function Search() {
     fetchApi();
   }, [debouncedValue]);
 
+  const handleFocus = (e) => {
+    setShowResult(true);
+  };
+
+  const handleKeyUp = (e) => {
+    if (e.key === "Tab") setTabbed(true);
+  };
+
+  const handleBlur = (e) => {
+    if (tabbed) setTabbed(false);
+  };
+
   return (
     // Using <div> around the reference element solves
     // this by creating a new parentNode context.
@@ -64,11 +79,7 @@ function Search() {
         interactive
         visible={showResult && searchResult.length > 0}
         render={(attrs) => (
-          <div
-            className={cx("search-result-box")}
-            tabIndex="-1"
-            {...attrs}
-          >
+          <div className={cx("search-result-box")} {...attrs}>
             <PopperWrapper>
               <h3 className={cx("search-title")}>Accounts</h3>
               {searchResult.map((item) => (
@@ -79,31 +90,40 @@ function Search() {
         )}
         onClickOutside={handleHideSearchResult}
       >
-        <div className={cx("search-box")}>
+        <form action="/search" className={cx("search-box")}>
           <input
+            className={cx("search-input")}
             ref={inputRef}
             value={keyword}
             placeholder="Search"
             spellCheck={false}
             onChange={handleChange}
-            onFocus={() => setShowResult(true)}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onKeyUp={handleKeyUp}
           />
 
-          {!!keyword && !loading && (
-            <button onClick={handleClear} className={cx("clear-btn")}>
-              <CloseIcon />
-            </button>
-          )}
+          <div className={cx("outline", { tabbed })}></div>
 
-          {loading && <LoadingIcon className={cx("loading-icon")} />}
+          <div className={cx("icons-container")}>
+            {!!keyword && !loading && (
+              <button onClick={handleClear} className={cx("clear-btn")}>
+                <CloseIcon />
+              </button>
+            )}
 
-          <button className={cx("search-btn")}>
+            {loading && <LoadingIcon className={cx("loading-icon")} />}
+          </div>
+
+          <div className={cx("separate")}></div>
+
+          <button type="click" className={cx("search-btn")}>
             <SearchIcon />
           </button>
-        </div>
+        </form>
       </HeadlessTippy>
     </div>
   );
 }
 
-export default Search;
+export default memo(Search);

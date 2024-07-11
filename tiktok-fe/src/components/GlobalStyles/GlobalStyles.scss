@@ -6,6 +6,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  *:focus-visible {
+    outline: 2px solid var(--primary-color);
+  }
 }
 
 html {
@@ -21,8 +25,7 @@ body {
 }
 
 button,
-input,
-[tabindex] {
+input {
   outline: none;
   border: none;
   background-color: transparent;
@@ -35,6 +38,13 @@ a {
   text-decoration: none;
   font-family: var(--primary-font);
   max-width: 100%;
+
+  &:focus-visible {
+  }
+}
+
+img {
+  user-select: none;
 }
 
 ul {

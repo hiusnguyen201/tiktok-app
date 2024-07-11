@@ -102,7 +102,6 @@ function Menu({
 
   return (
     <Tippy
-      tabIndex="-1"
       animation={animation}
       interactive={true}
       visible={visible}
