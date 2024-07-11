@@ -32,8 +32,10 @@ function Menu({
   const initialStyles = { opacity: 0 };
   const [props, setSpring] = useSpring(() => initialStyles);
 
+  //Directly calling start instead of using the api object is deprecated in v9
+  //(use ".start" instead), this will be removed in later 0.X.0 versions
   function onMount() {
-    setSpring({
+    setSpring.start({
       opacity: 1,
       onRest: () => {},
       config: {
@@ -45,7 +47,7 @@ function Menu({
 
   function onHide({ unmount }) {
     handleResetToFirstMenu();
-    setSpring({
+    setSpring.start({
       ...initialStyles,
       onRest: unmount,
       config: {

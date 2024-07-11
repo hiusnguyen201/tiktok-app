@@ -12,6 +12,7 @@ function LinkItem({ data }) {
         {data.links.map((item, index) => (
           <a
             key={index}
+            rel="noreferrer"
             className={cx("link")}
             href={item.href}
             target="_blank"
