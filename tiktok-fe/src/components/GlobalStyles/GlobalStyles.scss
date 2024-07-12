@@ -22,6 +22,7 @@ body {
   line-height: 1.5;
   text-rendering: optimizeSpeed;
   color: var(--primary-text-color);
+  scroll-behavior: smooth;
 }
 
 button,
@@ -38,9 +39,11 @@ a {
   text-decoration: none;
   font-family: var(--primary-font);
   max-width: 100%;
+}
 
-  &:focus-visible {
-  }
+button,
+a {
+  cursor: pointer;
 }
 
 img {

@@ -34,9 +34,11 @@ function Header() {
     <header className={cx("header")}>
       <div className={cx("header-wrapper")}>
         {/* Item 1 */}
-        <Link to={config.routes.home} className={cx("logo-link")}>
-          <img src={images.logo} alt="Tiktok" />
-        </Link>
+        <div className={cx("logo-container")}>
+          <Link to={config.routes.home} className={cx("logo-link")}>
+            <img src={images.logo} alt="Tiktok" />
+          </Link>
+        </div>
 
         {/* Item 2 */}
         <Search />

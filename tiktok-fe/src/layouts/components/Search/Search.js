@@ -74,7 +74,7 @@ function Search() {
   return (
     // Using <div> around the reference element solves
     // this by creating a new parentNode context.
-    <div>
+    <div className={cx("search-box")}>
       <HeadlessTippy
         interactive
         visible={showResult && searchResult.length > 0}
@@ -90,7 +90,7 @@ function Search() {
         )}
         onClickOutside={handleHideSearchResult}
       >
-        <form action="/search" className={cx("search-box")}>
+        <form action="/search" className={cx("search-form")}>
           <input
             className={cx("search-input")}
             ref={inputRef}

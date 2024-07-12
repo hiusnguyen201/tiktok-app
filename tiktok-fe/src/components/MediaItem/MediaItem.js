@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 
-import videos from "~/assets/videos";
 import Video from "~/components/Video";
 import CardTop from "./CardTop";
 import CardBottom from "./CardBottom";
@@ -13,34 +12,43 @@ const cx = classNames.bind(styles);
 
 export const VideoContext = createContext();
 
-function MediaItem({ data }) {
-  const [video, setVideo] = useState();
+function MediaItem({ id, index, autoPlay = false, data }) {
+  const [videoElement, setVideoElement] = useState();
+
+  const handleLoadedData = (e) => {
+    setVideoElement(e.target);
+  };
 
   return (
-    <div className={cx("item-container")}>
-      <div className={cx("media-wrapper")}>
-        <CardTop />
+    <div id={id} className={cx("wrapper")}>
+      <div className={cx("item-container")}>
+        <div className={cx("media-wrapper")}>
+          <CardTop />
 
-        <Video
-          onLoadedData={(e) => setVideo(e.target)}
-          src={videos.vid}
-          loop
-        />
+          <Video
+            onLoadedData={handleLoadedData}
+            src={data.src}
+            loop
+            muted
+          />
 
-        {video && (
-          <VideoContext.Provider value={{ video }}>
-            <CardBottom data={data} />
-          </VideoContext.Provider>
-        )}
+          {videoElement && (
+            <VideoContext.Provider
+              value={{ video: videoElement, autoPlay }}
+            >
+              <CardBottom data={data} />
+            </VideoContext.Provider>
+          )}
+        </div>
+
+        <ActionsMenu />
       </div>
-
-      <ActionsMenu />
     </div>
   );
 }
 
 MediaItem.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.object.isRequired,
 };
 
 export default MediaItem;

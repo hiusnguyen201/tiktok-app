@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { VideoContext } from "../MediaItem";
 import IconTooltip, {
@@ -18,8 +18,8 @@ import styles from "./CardBottom.module.scss";
 const cx = classNames.bind(styles);
 
 function ControlsBottom() {
-  const { video } = useContext(VideoContext);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { video, autoPlay } = useContext(VideoContext);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
 
   const handleTogglePlayVideo = () => {
@@ -31,8 +31,18 @@ function ControlsBottom() {
     setIsPlaying(!isPlaying);
   };
 
+  useEffect(() => {
+    if (autoPlay) {
+      video.play();
+    } else {
+      video.pause();
+      video.currentTime = 0;
+    }
+
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   const handleToggleAutoScroll = () => {
-    console.log(1);
     setIsAutoScroll(!isAutoScroll);
   };
 
