@@ -56,8 +56,7 @@ function ControlsBottom() {
       </button>
 
       <VideoSeekBar
-        isPlaying={isPlaying}
-        video={video}
+        data={{ ...useContext(VideoContext), isPlaying }}
         className={cx("seek-bar-box")}
       />
 
@@ -79,7 +78,7 @@ function ControlsBottom() {
         </IconTooltip>
 
         <AudioSeekBar
-          video={video}
+          data={useContext(VideoContext)}
           icon={<VolumeIcon />}
           mutedIcon={<VolumeMuteIconSolid />}
         />

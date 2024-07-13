@@ -1,22 +1,27 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useState } from "react";
 
 import Video from "~/components/Video";
 import CardTop from "./CardTop";
 import CardBottom from "./CardBottom";
 import ActionsMenu from "./ActionsMenu";
-
 import styles from "./MediaItem.module.scss";
 const cx = classNames.bind(styles);
 
 export const VideoContext = createContext();
 
-function MediaItem({ id, index, autoPlay = false, data }) {
+function MediaItem({ id, autoPlay = false, data, playerVolume }) {
   const [videoElement, setVideoElement] = useState();
 
   const handleLoadedData = (e) => {
     setVideoElement(e.target);
+  };
+
+  const value = {
+    video: videoElement,
+    autoPlay,
+    ...playerVolume,
   };
 
   return (
@@ -33,9 +38,7 @@ function MediaItem({ id, index, autoPlay = false, data }) {
           />
 
           {videoElement && (
-            <VideoContext.Provider
-              value={{ video: videoElement, autoPlay }}
-            >
+            <VideoContext.Provider value={value}>
               <CardBottom data={data} />
             </VideoContext.Provider>
           )}

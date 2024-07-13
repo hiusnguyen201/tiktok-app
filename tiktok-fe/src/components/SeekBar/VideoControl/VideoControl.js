@@ -5,7 +5,8 @@ import classNames from "classnames/bind";
 import styles from "./VideoControl.module.scss";
 const cx = classNames.bind(styles);
 
-function VideoControl({ video, isPlaying, className }) {
+function VideoControl({ data, className }) {
+  const { isPlaying, video } = data;
   const [dragging, setDragging] = useState(false);
   const seekBarCurrentRef = useRef();
   const seekBarProgressRef = useRef();

@@ -1,26 +1,31 @@
 import classNames from "classnames/bind";
 import { useRef, useState, memo, useEffect } from "react";
 
+import {
+  saveDataPlayerVolume,
+  getDataPlayerVolume,
+} from "~/utils/dataPlayerVolume";
 import styles from "./AudioControl.module.scss";
 const cx = classNames.bind(styles);
 
-function AudioControl({ video, icon, mutedIcon, className }) {
+function AudioControl({ data, icon, mutedIcon, className }) {
+  const { video, setPlayerVolume, playerVolume } = data;
+  const { data: dataPlayerVolume } = playerVolume;
+
   const [dragging, setDragging] = useState(false);
-  const [volumeValue, setVolumeValue] = useState({ prev: null, curr: 1 });
+  const [historyVolume, setHistoryVolume] = useState({
+    prev: 1,
+    curr: dataPlayerVolume?.volume / 100,
+  });
   const seekBarCurrentRef = useRef();
   const seekBarProgressRef = useRef();
 
   const handleToggleMute = () => {
-    const seekBarCurrent = seekBarCurrentRef.current;
-    if (volumeValue.curr > 0) {
-      video.volume = 0;
-      setVolumeValue({ prev: volumeValue.curr, curr: 0 });
-      seekBarCurrent.style.height = 0 + "px";
-    } else {
-      video.volume = volumeValue.prev;
-      setVolumeValue({ prev: volumeValue.curr, curr: volumeValue.prev });
-      seekBarCurrent.style.height = (volumeValue.prev / 1) * 100 + "%";
-    }
+    const newData = saveDataPlayerVolume(
+      Math.floor(historyVolume.curr > 0 ? 0 : historyVolume.prev * 100),
+      !historyVolume.volume
+    );
+    setPlayerVolume(newData);
   };
 
   const handleMouseDown = () => {
@@ -28,10 +33,6 @@ function AudioControl({ video, icon, mutedIcon, className }) {
   };
 
   const handleMouseUp = () => {
-    setVolumeValue({
-      prev: volumeValue.curr,
-      curr: video.volume,
-    });
     setDragging(false);
   };
 
@@ -51,9 +52,28 @@ function AudioControl({ video, icon, mutedIcon, className }) {
     }
 
     seekBarCurrentRef.current.style.height = diffHeightPercent * 100 + "%";
-
     video.volume = 1 * diffHeightPercent;
+
+    const newData = saveDataPlayerVolume(
+      Math.floor(video.volume * 100),
+      !historyVolume.volume
+    );
+    setPlayerVolume(newData);
   };
+
+  // Re-render when data player volume change in local storage
+  useEffect(() => {
+    setHistoryVolume((data) => ({
+      prev: historyVolume.curr,
+      curr: dataPlayerVolume?.volume / 100,
+    }));
+  }, [playerVolume]);
+
+  // Re-render when history volume change in here
+  useEffect(() => {
+    seekBarCurrentRef.current.style.height =
+      historyVolume.curr * 100 + "%";
+  }, [historyVolume]);
 
   useEffect(() => {
     if (dragging) {
@@ -96,7 +116,7 @@ function AudioControl({ video, icon, mutedIcon, className }) {
       </div>
 
       <button className={cx("volume-btn")} onClick={handleToggleMute}>
-        {volumeValue.curr > 0 ? icon : mutedIcon}
+        {historyVolume.curr > 0 ? icon : mutedIcon}
       </button>
     </div>
   );
