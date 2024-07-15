@@ -63,10 +63,7 @@ function Header() {
                 <MessageIcon />
               </IconTooltip>
 
-              <IconTooltip
-                className={cx("inbox-icon-wrapper")}
-                content="Inbox"
-              >
+              <IconTooltip className={cx("inbox-icon-wrapper")} content="Inbox">
                 <span className={cx("badge")}>3</span>
                 <InboxIcon />
               </IconTooltip>

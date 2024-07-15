@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import MediaItem from "~/components/MediaItem";
 import videos from "~/assets/videos";
@@ -33,73 +33,77 @@ function Home() {
   });
   const [autoScroll, setAutoScroll] = useState(true);
 
-  // const handleEnded = () => {
-  //   if (idItemPlaying < 0) return;
+  const getPositionItems = useCallback(() => {
+    const mediaList = window.document.querySelectorAll("#mediaItem");
+    let data = [];
 
-  //   const mediaList = window.document.querySelectorAll("#mediaItem");
+    mediaList.forEach((item, index) => {
+      const previousItem = mediaList[index - 1];
+      const previousTriggerPos = previousItem
+        ? previousItem.offsetTop + previousItem.offsetHeight / 2
+        : 0;
+      const nextTriggerPos = mediaList[index + 1]
+        ? item.offsetTop + item.offsetHeight / 2
+        : Infinity;
+      return data.push({
+        previousTriggerPos,
+        nextTriggerPos,
+        index,
+      });
+    });
 
-  //   const indexCurrentItem = dataVids.findIndex(
-  //     (item) => item.id === idItemPlaying
-  //   );
+    return data;
+  }, [dataVids]);
 
-  //   if (dataVids[indexCurrentItem + 1]) {
-  //     window.scrollTo(
-  //       0,
-  //       mediaList[indexCurrentItem].offsetTop +
-  //         mediaList[indexCurrentItem].offsetHeight -
-  //         60 // 60 is header
-  //     );
-  //   } else {
-  //     window.scrollTo(0, 0);
-  //     return;
-  //   }
-  // };
+  const handleEnded = () => {
+    if (idItemPlaying < 0) return;
+
+    const mediaList = window.document.querySelectorAll("#mediaItem");
+    const currentIndex = dataVids.findIndex(
+      (item) => item.id === idItemPlaying
+    );
+
+    const dataScrollTo = {
+      left: 0,
+      behavior: "smooth",
+    };
+
+    if (dataVids[currentIndex + 1]) {
+      window.scrollTo({
+        top: mediaList[currentIndex].offsetHeight * (currentIndex + 1),
+        ...dataScrollTo,
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
+        ...dataScrollTo,
+      });
+    }
+  };
 
   // Autoplay video of <MediaItem> when scrolling
   useEffect(() => {
-    const mediaList = window.document.querySelectorAll("#mediaItem");
+    let delayAutoPlayTimeout;
 
     const handleScrollAutoPlayVideo = () => {
       if (idItemPlaying < 0) return;
 
-      const indexCurrentItem = dataVids.findIndex(
-        (item) => item.id === idItemPlaying
+      const positions = getPositionItems();
+      const currentPosition = positions.find(
+        (item) =>
+          window.scrollY >= item.previousTriggerPos &&
+          window.scrollY <= item.nextTriggerPos
       );
 
-      const currentItem = mediaList[indexCurrentItem];
-      const previousItem = mediaList[indexCurrentItem - 1];
-
-      console.log(window.scrollY);
-
-      const conditionMoveToNextItem =
-        currentItem &&
-        window.scrollY >
-          currentItem.offsetTop + currentItem.offsetHeight / 2;
-
-      const conditionMoveToPreviousItem =
-        previousItem &&
-        window.scrollY <
-          previousItem.offsetTop + previousItem.offsetHeight / 2;
-
-      let itemTriggered = null;
-      if (conditionMoveToNextItem) {
-        itemTriggered = dataVids[indexCurrentItem + 1];
-      } else if (conditionMoveToPreviousItem) {
-        itemTriggered = dataVids[indexCurrentItem - 1];
-      } else {
-        itemTriggered = dataVids[0];
-      }
-
-      console.log(itemTriggered);
-
-      // if (itemTriggered) {
-      //   setIdItemPlaying(itemTriggered.id);
-      // }
+      delayAutoPlayTimeout = setTimeout(() => {
+        setIdItemPlaying(dataVids[currentPosition.index].id);
+      }, 1000);
     };
 
     window.addEventListener("scroll", handleScrollAutoPlayVideo);
 
     return () => {
+      if (delayAutoPlayTimeout) clearInterval(delayAutoPlayTimeout);
       window.removeEventListener("scroll", handleScrollAutoPlayVideo);
     };
   }, [idItemPlaying]);
@@ -132,7 +136,7 @@ function Home() {
           dataVids.map((item) => (
             <MediaItem
               otherData={value}
-              // onEnded={handleEnded}
+              onEnded={handleEnded}
               autoPlay={item.id === idItemPlaying}
               key={item.id}
               id={"mediaItem"}
