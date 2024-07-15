@@ -18,9 +18,9 @@ import styles from "./CardBottom.module.scss";
 const cx = classNames.bind(styles);
 
 function ControlsBottom({ data }) {
-  const { video, autoPlay, setIdItemPlaying } = useContext(VideoContext);
+  const { video, autoPlay, setIdItemPlaying, autoScroll, setAutoScroll } =
+    useContext(VideoContext);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const [isAutoScroll, setIsAutoScroll] = useState(true);
   const togglePlayBtnRef = useRef();
 
   const handleTogglePlayVideo = () => {
@@ -34,7 +34,7 @@ function ControlsBottom({ data }) {
   };
 
   const handleToggleAutoScroll = () => {
-    setIsAutoScroll(!isAutoScroll);
+    setAutoScroll(!autoScroll);
   };
 
   useEffect(() => {
@@ -74,9 +74,9 @@ function ControlsBottom({ data }) {
         <IconTooltip
           onClick={handleToggleAutoScroll}
           className={cx("toggleAutoScroll-icon-wrapper")}
-          content={`Auto Scroll is ${isAutoScroll ? "on" : "off"} `}
+          content={`Auto Scroll is ${autoScroll ? "on" : "off"} `}
         >
-          {isAutoScroll ? <ArrowUpIconSolid /> : <ArrowUpMuteIconSolid />}
+          {autoScroll ? <ArrowUpIconSolid /> : <ArrowUpMuteIconSolid />}
         </IconTooltip>
 
         <AudioSeekBar

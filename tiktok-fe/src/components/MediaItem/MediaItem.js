@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 
 export const VideoContext = createContext();
 
-function MediaItem({ id, autoPlay = false, data, playerVolume }) {
+function MediaItem({ id, onEnded, autoPlay = false, data, otherData }) {
   const [videoElement, setVideoElement] = useState();
 
   const handleLoadedData = (e) => {
@@ -21,7 +21,7 @@ function MediaItem({ id, autoPlay = false, data, playerVolume }) {
   const value = {
     video: videoElement,
     autoPlay,
-    ...playerVolume,
+    ...otherData,
   };
 
   return (
@@ -32,8 +32,9 @@ function MediaItem({ id, autoPlay = false, data, playerVolume }) {
 
           <Video
             onLoadedData={handleLoadedData}
+            onEnded={onEnded}
             src={data.src}
-            loop
+            loop={!otherData.autoScroll}
             autoPlay={autoPlay}
             muted={value.playerVolumeBrowser.data.muted}
           />

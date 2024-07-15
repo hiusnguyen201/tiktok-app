@@ -31,37 +31,70 @@ function Home() {
     if (!getDataPlayerVolume()) initDataPlayerVolume();
     return getDataPlayerVolume();
   });
+  const [autoScroll, setAutoScroll] = useState(true);
 
-  const value = {
-    playerVolumeBrowser,
-    setPlayerVolumeBrowser,
-    setIdItemPlaying,
-  };
+  // const handleEnded = () => {
+  //   if (idItemPlaying < 0) return;
+
+  //   const mediaList = window.document.querySelectorAll("#mediaItem");
+
+  //   const indexCurrentItem = dataVids.findIndex(
+  //     (item) => item.id === idItemPlaying
+  //   );
+
+  //   if (dataVids[indexCurrentItem + 1]) {
+  //     window.scrollTo(
+  //       0,
+  //       mediaList[indexCurrentItem].offsetTop +
+  //         mediaList[indexCurrentItem].offsetHeight -
+  //         60 // 60 is header
+  //     );
+  //   } else {
+  //     window.scrollTo(0, 0);
+  //     return;
+  //   }
+  // };
 
   // Autoplay video of <MediaItem> when scrolling
   useEffect(() => {
     const mediaList = window.document.querySelectorAll("#mediaItem");
 
     const handleScrollAutoPlayVideo = () => {
+      if (idItemPlaying < 0) return;
+
       const indexCurrentItem = dataVids.findIndex(
         (item) => item.id === idItemPlaying
       );
-      const item = mediaList[indexCurrentItem];
+
+      const currentItem = mediaList[indexCurrentItem];
       const previousItem = mediaList[indexCurrentItem - 1];
 
-      const conditionNextItem =
-        item && window.scrollY > item.offsetTop + item.offsetHeight / 2;
+      console.log(window.scrollY);
 
-      const previousTriggerOffsetY =
+      const conditionMoveToNextItem =
+        currentItem &&
+        window.scrollY >
+          currentItem.offsetTop + currentItem.offsetHeight / 2;
+
+      const conditionMoveToPreviousItem =
         previousItem &&
         window.scrollY <
           previousItem.offsetTop + previousItem.offsetHeight / 2;
 
-      if (conditionNextItem) {
-        setIdItemPlaying(dataVids[indexCurrentItem + 1].id);
-      } else if (previousTriggerOffsetY) {
-        setIdItemPlaying(dataVids[indexCurrentItem - 1].id);
+      let itemTriggered = null;
+      if (conditionMoveToNextItem) {
+        itemTriggered = dataVids[indexCurrentItem + 1];
+      } else if (conditionMoveToPreviousItem) {
+        itemTriggered = dataVids[indexCurrentItem - 1];
+      } else {
+        itemTriggered = dataVids[0];
       }
+
+      console.log(itemTriggered);
+
+      // if (itemTriggered) {
+      //   setIdItemPlaying(itemTriggered.id);
+      // }
     };
 
     window.addEventListener("scroll", handleScrollAutoPlayVideo);
@@ -84,13 +117,22 @@ function Home() {
     };
   }, []);
 
+  const value = {
+    playerVolumeBrowser,
+    setPlayerVolumeBrowser,
+    setIdItemPlaying,
+    autoScroll,
+    setAutoScroll,
+  };
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("column-container")}>
         {dataVids.length > 0 &&
           dataVids.map((item) => (
             <MediaItem
-              playerVolume={value}
+              otherData={value}
+              // onEnded={handleEnded}
               autoPlay={item.id === idItemPlaying}
               key={item.id}
               id={"mediaItem"}
