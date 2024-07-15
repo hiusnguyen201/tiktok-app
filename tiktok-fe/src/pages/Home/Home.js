@@ -12,40 +12,55 @@ const cx = classNames.bind(styles);
 
 const dataVids = [
   {
+    id: 1,
     src: videos.vid,
   },
   {
+    id: 2,
+    src: videos.vid2,
+  },
+  {
+    id: 3,
     src: videos.vid,
   },
 ];
 
 function Home() {
-  const [indexItemPlaying, setIndexItemPlaying] = useState(0);
-  const [playerVolume, setPlayerVolume] = useState(() => {
-    if (!getDataPlayerVolume()) initDataPlayerVolume(100, false);
+  const [idItemPlaying, setIdItemPlaying] = useState(-1);
+  const [playerVolumeBrowser, setPlayerVolumeBrowser] = useState(() => {
+    if (!getDataPlayerVolume()) initDataPlayerVolume();
     return getDataPlayerVolume();
   });
 
+  const value = {
+    playerVolumeBrowser,
+    setPlayerVolumeBrowser,
+    setIdItemPlaying,
+  };
+
+  // Autoplay video of <MediaItem> when scrolling
   useEffect(() => {
     const mediaList = window.document.querySelectorAll("#mediaItem");
 
     const handleScrollAutoPlayVideo = () => {
-      if (window.scrollY % 100 !== 0) return;
-
-      const item = mediaList[indexItemPlaying];
-      const previousItem = mediaList[indexItemPlaying - 1];
+      const indexCurrentItem = dataVids.findIndex(
+        (item) => item.id === idItemPlaying
+      );
+      const item = mediaList[indexCurrentItem];
+      const previousItem = mediaList[indexCurrentItem - 1];
 
       const conditionNextItem =
         item && window.scrollY > item.offsetTop + item.offsetHeight / 2;
+
       const previousTriggerOffsetY =
         previousItem &&
         window.scrollY <
           previousItem.offsetTop + previousItem.offsetHeight / 2;
 
       if (conditionNextItem) {
-        setIndexItemPlaying(indexItemPlaying + 1);
+        setIdItemPlaying(dataVids[indexCurrentItem + 1].id);
       } else if (previousTriggerOffsetY) {
-        setIndexItemPlaying(indexItemPlaying - 1);
+        setIdItemPlaying(dataVids[indexCurrentItem - 1].id);
       }
     };
 
@@ -54,25 +69,35 @@ function Home() {
     return () => {
       window.removeEventListener("scroll", handleScrollAutoPlayVideo);
     };
-  }, [indexItemPlaying]);
+  }, [idItemPlaying]);
 
-  const value = {
-    playerVolume,
-    setPlayerVolume,
-  };
+  // Refresh go to top
+  useEffect(() => {
+    const handleLoaded = () => {
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener("beforeunload", handleLoaded);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleLoaded);
+    };
+  }, []);
 
   return (
     <div className={cx("wrapper")}>
-      {dataVids.length > 0 &&
-        dataVids.map((item, index) => (
-          <MediaItem
-            playerVolume={value}
-            autoPlay={index === indexItemPlaying}
-            key={index}
-            id={"mediaItem"}
-            data={item}
-          />
-        ))}
+      <div className={cx("column-container")}>
+        {dataVids.length > 0 &&
+          dataVids.map((item) => (
+            <MediaItem
+              playerVolume={value}
+              autoPlay={item.id === idItemPlaying}
+              key={item.id}
+              id={"mediaItem"}
+              data={item}
+            />
+          ))}
+      </div>
     </div>
   );
 }

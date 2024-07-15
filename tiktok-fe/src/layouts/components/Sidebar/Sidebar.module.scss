@@ -1,7 +1,25 @@
-.aside-wrapper {
+.container {
   width: var(--default-layout-sidebar-width);
-  overflow-y: auto;
-  padding: 20px 8px 26px 8px;
+  padding-right: 8px;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  overflow: hidden auto;
+  overscroll-behavior-y: contain;
+
+  &::-webkit-scrollbar {
+    opacity: 0;
+    width: 6px;
+  }
+
+  &:hover &::-webkit-scrollbar {
+    opacity: 1;
+  }
+}
+
+.wrapper {
+  padding: 20px 0px 26px 8px;
 }
 
 .smallIcon {

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 import Video from "~/components/Video";
 import CardTop from "./CardTop";
@@ -34,7 +34,8 @@ function MediaItem({ id, autoPlay = false, data, playerVolume }) {
             onLoadedData={handleLoadedData}
             src={data.src}
             loop
-            muted
+            autoPlay={autoPlay}
+            muted={value.playerVolumeBrowser.data.muted}
           />
 
           {videoElement && (

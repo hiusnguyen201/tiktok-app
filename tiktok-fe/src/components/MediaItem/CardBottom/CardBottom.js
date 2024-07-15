@@ -54,7 +54,7 @@ function CardBottom({ data }) {
         </button>
       </div> */}
 
-      <ControlsBottom />
+      <ControlsBottom data={data} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 
 import { VideoContext } from "../MediaItem";
 import IconTooltip, {
@@ -17,38 +17,40 @@ import { AudioSeekBar, VideoSeekBar } from "~/components/SeekBar";
 import styles from "./CardBottom.module.scss";
 const cx = classNames.bind(styles);
 
-function ControlsBottom() {
-  const { video, autoPlay } = useContext(VideoContext);
+function ControlsBottom({ data }) {
+  const { video, autoPlay, setIdItemPlaying } = useContext(VideoContext);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
+  const togglePlayBtnRef = useRef();
 
   const handleTogglePlayVideo = () => {
     if (isPlaying) {
       video.pause();
     } else {
       video.play();
+      setIdItemPlaying(data.id);
     }
     setIsPlaying(!isPlaying);
+  };
+
+  const handleToggleAutoScroll = () => {
+    setIsAutoScroll(!isAutoScroll);
   };
 
   useEffect(() => {
     if (autoPlay) {
       video.play();
     } else {
-      video.pause();
       video.currentTime = 0;
+      video.pause();
     }
-
     setIsPlaying(autoPlay);
   }, [autoPlay]);
-
-  const handleToggleAutoScroll = () => {
-    setIsAutoScroll(!isAutoScroll);
-  };
 
   return (
     <div className={cx("controls-bottom")}>
       <button
+        ref={togglePlayBtnRef}
         onClick={handleTogglePlayVideo}
         className={cx("togglePlay-icon-wrapper")}
       >

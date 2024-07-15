@@ -1,16 +1,13 @@
 import classNames from "classnames/bind";
 import { useRef, useState, memo, useEffect } from "react";
 
-import {
-  saveDataPlayerVolume,
-  getDataPlayerVolume,
-} from "~/utils/dataPlayerVolume";
+import { saveDataPlayerVolume } from "~/utils/dataPlayerVolume";
 import styles from "./AudioControl.module.scss";
 const cx = classNames.bind(styles);
 
 function AudioControl({ data, icon, mutedIcon, className }) {
-  const { video, setPlayerVolume, playerVolume } = data;
-  const { data: dataPlayerVolume } = playerVolume;
+  const { video, setPlayerVolumeBrowser, playerVolumeBrowser } = data;
+  const { data: dataPlayerVolume } = playerVolumeBrowser;
 
   const [dragging, setDragging] = useState(false);
   const [historyVolume, setHistoryVolume] = useState({
@@ -21,11 +18,13 @@ function AudioControl({ data, icon, mutedIcon, className }) {
   const seekBarProgressRef = useRef();
 
   const handleToggleMute = () => {
+    const newVolume =
+      historyVolume.curr > 0 ? 0 : historyVolume.prev * 100;
     const newData = saveDataPlayerVolume(
-      Math.floor(historyVolume.curr > 0 ? 0 : historyVolume.prev * 100),
-      !historyVolume.volume
+      Math.floor(newVolume),
+      !!historyVolume.curr
     );
-    setPlayerVolume(newData);
+    setPlayerVolumeBrowser(newData);
   };
 
   const handleMouseDown = () => {
@@ -56,18 +55,25 @@ function AudioControl({ data, icon, mutedIcon, className }) {
 
     const newData = saveDataPlayerVolume(
       Math.floor(video.volume * 100),
-      !historyVolume.volume
+      video.volume > 0 ? false : true
     );
-    setPlayerVolume(newData);
+    setPlayerVolumeBrowser(newData);
   };
+
+  useEffect(() => {
+    if (video.muted) {
+      const newData = saveDataPlayerVolume(0, true);
+      setPlayerVolumeBrowser(newData);
+    }
+  }, [video.muted]);
 
   // Re-render when data player volume change in local storage
   useEffect(() => {
-    setHistoryVolume((data) => ({
-      prev: historyVolume.curr,
+    setHistoryVolume({
+      prev: historyVolume.prev,
       curr: dataPlayerVolume?.volume / 100,
-    }));
-  }, [playerVolume]);
+    });
+  }, [playerVolumeBrowser]);
 
   // Re-render when history volume change in here
   useEffect(() => {
@@ -75,6 +81,7 @@ function AudioControl({ data, icon, mutedIcon, className }) {
       historyVolume.curr * 100 + "%";
   }, [historyVolume]);
 
+  // Allow cursor holding control when onBlur component
   useEffect(() => {
     if (dragging) {
       window.addEventListener("mousemove", handleChangeVolume);

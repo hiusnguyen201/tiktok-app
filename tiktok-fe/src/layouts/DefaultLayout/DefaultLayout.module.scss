@@ -11,5 +11,6 @@
 }
 
 .content {
+  margin-left: var(--default-layout-aside-width);
   flex: 1;
 }
