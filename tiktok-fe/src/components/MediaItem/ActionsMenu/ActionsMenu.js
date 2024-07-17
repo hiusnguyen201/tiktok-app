@@ -22,22 +22,18 @@ import { spliceArray } from "~/utils/convertData";
 import styles from "./ActionsMenu.module.scss";
 const cx = classNames.bind(styles);
 
-const initShareItems = [
-  ...spliceArray(shareItems, 5),
-  {
-    icon: <ArrowDownIcon />,
-    type: "more",
-    children: {
-      level: 2,
-      data: shareItems,
-    },
-  },
-];
-
 function ActionsMenu({ data }) {
   const [hearted, setHearted] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [followed, setFollowed] = useState(true);
+
+  const handleChangeData = (item, setHistory) => {
+    switch (item.type) {
+      case "more":
+        setHistory((prev) => [...prev, { data: shareItems }]);
+        break;
+    }
+  };
 
   return (
     <ul className={cx("wrapper")}>
@@ -55,7 +51,6 @@ function ActionsMenu({ data }) {
           {followed ? <CheckThinIcon /> : <PlusThinIcon />}
         </button>
       </div>
-
       <ActionItem
         onClick={() => setHearted(!hearted)}
         icon={
@@ -80,8 +75,15 @@ function ActionsMenu({ data }) {
         className={cx("share-menu")}
         offset={[-25, 0]}
         delay={[0, 400]}
+        onChange={handleChangeData}
         placement="top-start"
-        items={initShareItems}
+        items={[
+          ...spliceArray(shareItems, 5),
+          {
+            icon: <ArrowDownIcon />,
+            type: "more",
+          },
+        ]}
       >
         <div>
           <ActionItem icon={<ShareArrowIconSolid />} text={"263"} />

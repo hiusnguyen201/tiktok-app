@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
 import { useSpring, animated } from "@react-spring/web";
@@ -19,12 +19,13 @@ function Menu({
   offset = [12, 12],
   items = [],
   hideOnClick = false,
-  delay = [0, 700],
+  delay = [0, 400],
   onChange = defaultFn,
   placement = "bottom-end",
   animation = true,
 }) {
   const [history, setHistory] = useState([{ data: items }]);
+  const [mount, setMount] = useState(false);
   const current = history[history.length - 1];
 
   // Animate
@@ -40,22 +41,25 @@ function Menu({
       onRest: () => {},
       config: {
         ...config,
-        duration: 0,
+        duration: delay[0],
       },
     });
+
+    setMount(true);
   }
 
   function onHide({ unmount }) {
-    handleResetToFirstMenu();
     setSpring.start({
       ...initialStyles,
       onRest: unmount,
       config: {
         ...config,
         clamp: true,
-        duration: 200,
+        duration: delay[1],
       },
     });
+
+    setMount(false);
   }
 
   const renderItems = () => {
@@ -102,6 +106,18 @@ function Menu({
       </animated.div>
     );
   };
+
+  useEffect(() => {
+    if (mount) return;
+
+    const resetDataTimeOut = setTimeout(() => {
+      handleResetToFirstMenu();
+    }, delay[1]);
+
+    return () => {
+      clearInterval(resetDataTimeOut);
+    };
+  }, [mount]);
 
   return (
     <Tippy
